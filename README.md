@@ -26,11 +26,11 @@ In development
 | steps | features | status | task branch|
 |---|---|---|---|
 | -a -i | interactively add an address | done 26.07 | master/develop |
-| -r -i | interactively add an address | r1 | task/r1 |
-| -s -i | interactively add an address | s | task/s1 |  
+| -r -i | interactively remove an address | r1 | task/r1 |
+| -s -i | interactively search an address | s | task/s1 |  
 | -a | interactively add an address | add | task/add1 |
-| -r | interactively add an address | remove | task/remove |
-| -s | interactively add an address | search | task/search |
+| -r | interactively remove an address | remove | task/remove |
+| -s | interactively search an address | search | task/search |
 | test | test sources | test |task/test|
 | document | document sources | doxygen | task/doxygen | 
 | man-document | man documentation | man | task/man |

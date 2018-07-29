@@ -26,7 +26,15 @@
 *.a
 *.lib
 
+
 # Executables
 *.exe
 *.out
 *.app
+
+# CMakeFiles
+cmake_install.cmake
+Makefile
+
+#TestFiles
+addressen.csv

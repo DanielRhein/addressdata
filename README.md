@@ -14,7 +14,7 @@ addressdata <options> [<addressdata>|count]
 | -s     | search for Addressdata | string you are searching for|
 | -c     | count content of addressdata | count the amount of addressdata |
 | -i     | interactively choose add remove or search for address | none|
-| -a -ii  | adding addressdata interactively | adding addressdata interatively |
+| -a -i  | adding addressdata interactively | adding addressdata interatively |
 | -r -i | remove interactively an address| none|
 | -s -i | search for a string interactively | none |
     
@@ -22,8 +22,9 @@ addressdata <options> [<addressdata>|count]
 In development
 
 #Planned steps
+
 | steps | features | status | task branch|
-|=======|==========|========|============|
+|---|---|---|---|
 | -a -i | interactively add an address | done 26.07 | master/develop |
 | -r -i | interactively add an address | r1 | task/r1 |
 | -s -i | interactively add an address | s | task/s1 |  

@@ -19,10 +19,106 @@ void showFileContent(string filename) {
 	info.close();
 }
 
+bool question(string question, string positive, string negative,
+		string default_value) {
+	bool retry = true;
+	do {
+		string input = "";
+		cout << question << endl;
+		cout << "(" << positive << "/" << negative
+				<< ") default on empty input (" << default_value << "): ";
+		getline(cin, input);
+
+		if (!cin.fail()) {
+			if (input.empty()) {
+				if (default_value == positive) {
+					cout << "Your default input was positive."<< endl;
+					return true;
+				} else {
+					cout << "Your default input was negative."<< endl;
+					return false;
+				}
+
+			} else {
+				if (input == positive) {
+					retry = false;
+					cout << "Your input was positive."<< endl;
+					return true;
+				} else if (input == negative) {
+					retry = false;
+					cout << "Your input was negative."<< endl;
+					return false;
+				} else {
+					cout << "Wrong input detected. Request will start soon." << endl;
+					retry = true;
+				}
+			}
+		}
+	} while (retry);
+}
+
+void removeData(string filename, unsigned long long &ULL_id) {
+	ifstream info;
+	ofstream ostream;
+	string readline;
+	unsigned long long ULL_count = 0;
+
+	cout << "Loading data of file " << filename << endl;
+	info.open(filename);
+	ostream.open("temp.txt");
+	cout << "Reading data of file " << filename << endl;
+	if (!info.fail()) {
+		while (getline(info, readline)) {
+			ULL_count++;
+			if (ULL_id == ULL_count) {
+				cout << "Found entry:" << readline << endl;
+				if (question("Would you like to delete it", "Y", "N", "Y")) {
+					cout << "Entry will be deleted." << endl;
+				} else {
+					ostream << readline;
+				}
+			} else {
+				ostream << readline;
+			}
+
+		}
+	} else {
+		cerr << "File not found: " << filename << endl;
+	}
+	info.close();
+	ostream.close();
+	remove(filename.c_str());
+	rename("temp.txt", filename.c_str());
+}
+
+void removeDataInteractively(string filename) {
+	ifstream info;
+	string readline;
+	stringstream ss;
+	unsigned long long ULL_count = 0;
+	cout << "Loading data of file " << filename << endl;
+	info.open(filename);
+	cout << "Counting data of file " << filename << endl;
+	if (!info.fail()) {
+		while (getline(info, readline)) {
+			ULL_count++;
+			ss << "Would you like to delete this data? " << readline;
+			if (question(ss.str(), "Y", "N", "Y")) {
+				info.close();
+				removeData(filename, ULL_count);
+			}
+			ss.clear();
+		}
+	} else {
+		cerr << "File not found: " << filename << endl;
+	}
+	info.close();
+}
+
 void countFileContent(string filename) {
 	ifstream info;
 	string readline;
-	unsigned long long ULL_count=0;
+	unsigned long long ULL_count = 0;
 	cout << "Loading data of file " << filename << endl;
 	info.open(filename);
 	cout << "Counting data of file " << filename << endl;
@@ -48,51 +144,44 @@ void writeAddress(string filename, address addresse) {
 }
 
 bool hastoken(string param, string value) {
-	size_t found =param.find(value);
-	if (found!=std::string::npos)
-	{
+	size_t found = param.find(value);
+	if (found != std::string::npos) {
 		return true;
-	}
-	else
-	{
+	} else {
 		return false;
 	}
 }
 
-void split(const string& s, char delim,vector<string>& v) {
-    auto i = 0;
-    auto pos = s.find(delim);
-    while (pos != string::npos) {
-      v.push_back(s.substr(i, pos-i));
-      i = ++pos;
-      pos = s.find(delim, pos);
+void split(const string& s, char delim, vector<string>& v) {
+	auto i = 0;
+	auto pos = s.find(delim);
+	while (pos != string::npos) {
+		v.push_back(s.substr(i, pos - i));
+		i = ++pos;
+		pos = s.find(delim, pos);
 
-
-      if (pos == string::npos)
-         v.push_back(s.substr(i, s.length()));
-    }
+		if (pos == string::npos)
+			v.push_back(s.substr(i, s.length()));
+	}
 }
 
 string getAddress(char argv[]) {
 	string text(argv);
 	vector<string> result;
-	split(text,' ',result);
+	split(text, ' ', result);
 	return result[result.size()];
 }
 
-string getInput(string bez)
-{
+string getInput(string bez) {
 	string line;
-	do
-	{
-	cout << bez <<": ";
-		getline(cin,line);
-	}while(line.empty());
+	do {
+		cout << bez << ": ";
+		getline(cin, line);
+	} while (line.empty());
 	return line;
 }
 
-address interactiveAddAddress()
-{
+address interactiveAddAddress() {
 	address addresse;
 	addresse.setName(getInput("Name"));
 	addresse.setVorname(getInput("Vorname"));
@@ -100,22 +189,21 @@ address interactiveAddAddress()
 	addresse.setHausnummer(getInput("Hausnummer"));
 	addresse.setPostleitzahl(getInput("PLZ"));
 	addresse.setOrt(getInput("Ort"));
-	addresse.setGeburtstag(address::parseDateTime(getInput("Geburtstag (10.1.2017 00:00:00")));
+	addresse.setGeburtstag(
+			address::parseDateTime(getInput("Geburtstag (10.1.2017 00:00:00")));
 	return addresse;
 }
 
-void showvalue(string value,bool b)
-{
-	cout << value << ":" << b <<endl;
+void showvalue(string value, bool b) {
+	cout << value << ":" << b << endl;
 }
 
 int main(int argc, char **argv) {
 	bool add, remove, search, interactive, count;
-	string addressfile="addressen.csv";
+	string addressfile = "addressen.csv";
 	stringstream ss();
 	string params;
-	for(int i=0;i<argc;i++)
-	{
+	for (int i = 0; i < argc; i++) {
 		params.append(argv[i]);
 	}
 
@@ -123,40 +211,34 @@ int main(int argc, char **argv) {
 		showFileContent("bannersimple");
 		showFileContent("runinfo");
 	} else {
-		add = hastoken(params,"-a");
-		search = hastoken(params,"-s");
-		interactive = hastoken(params,"-i");
-		remove = hastoken(params,"-r");
-		count = hastoken(params,"-c");
-		showvalue("add",add);
-		showvalue("search",search);
-		showvalue("interactive",interactive);
-		showvalue("remove",remove);
-		showvalue("count",count);
+		add = hastoken(params, "-a");
+		search = hastoken(params, "-s");
+		interactive = hastoken(params, "-i");
+		remove = hastoken(params, "-r");
+		count = hastoken(params, "-c");
+		showvalue("add", add);
+		showvalue("search", search);
+		showvalue("interactive", interactive);
+		showvalue("remove", remove);
+		showvalue("count", count);
 
-		if (add && interactive)
-		{
-			address address= interactiveAddAddress();
-			writeAddress(addressfile,address);
+		if (add && interactive) {
+			address address = interactiveAddAddress();
+			writeAddress(addressfile, address);
 		}
-		if (remove && interactive)
-		{
+		if (remove && interactive) {
+			removeDataInteractively(addressfile);
+		}
+		if (search && interactive) {
 			cout << "Not yet implemented." << endl;
 		}
-		if (search && interactive)
-		{
+		if (search && !interactive) {
 			cout << "Not yet implemented." << endl;
 		}
-		if (search && !interactive)
-		{
+		if (remove && !interactive) {
 			cout << "Not yet implemented." << endl;
 		}
-		if (remove && !interactive)
-		{
-			cout << "Not yet implemented." << endl;
-		}
-		if (count)
-		{
+		if (count) {
 			countFileContent(addressfile);
 		}
 	}

@@ -26,7 +26,7 @@ In development
 | steps | features | status | task branch|
 |---|---|---|---|
 | -a -i | interactively add an address | done 26.07 | master/develop |
-| -r -i | interactively remove an address | r1 | task/r1 |
+| -r -i | interactively remove an address | done 4.08 | task/r1 |
 | -c    | count address content | done 04.08 | task/c1 |
 | -s -i | interactively search an address | s | task/s1 |  
 | -a | interactively add an address | add | task/add1 |

@@ -19,6 +19,24 @@ void showFileContent(string filename) {
 	info.close();
 }
 
+void countFileContent(string filename) {
+	ifstream info;
+	string readline;
+	unsigned long long ULL_count=0;
+	cout << "Loading data of file " << filename << endl;
+	info.open(filename);
+	cout << "Counting data of file " << filename << endl;
+	if (!info.fail()) {
+		while (getline(info, readline)) {
+			ULL_count++;
+		}
+	} else {
+		cerr << "File not found: " << filename << endl;
+	}
+	info.close();
+	cout << "I've counted " << ULL_count << " address in address data." << endl;
+}
+
 void writeAddress(string filename, address addresse) {
 	ofstream outputfile;
 	outputfile.open(filename, ios_base::app & ios_base::out);
@@ -109,10 +127,12 @@ int main(int argc, char **argv) {
 		search = hastoken(params,"-s");
 		interactive = hastoken(params,"-i");
 		remove = hastoken(params,"-r");
+		count = hastoken(params,"-c");
 		showvalue("add",add);
 		showvalue("search",search);
 		showvalue("interactive",interactive);
 		showvalue("remove",remove);
+		showvalue("count",count);
 
 		if (add && interactive)
 		{
@@ -134,6 +154,10 @@ int main(int argc, char **argv) {
 		if (remove && !interactive)
 		{
 			cout << "Not yet implemented." << endl;
+		}
+		if (count)
+		{
+			countFileContent(addressfile);
 		}
 	}
 }

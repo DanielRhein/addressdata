@@ -3,10 +3,11 @@ Addressdata has seven-Parametters to run
 addressdata <options> <address> 
 
 Options:
--a	Add a address.
+-a  Add a address.
 -i  Interactively. Allows you to add (-a) or remove (-r) an address interactively
 -r  Remove address. Need an id of the given address, or the exact one.
 -s  Search for address with the given parameters.
+-c  Count addressdaten
 -b  Show a banner
 -bf Show a flower power banner.
 

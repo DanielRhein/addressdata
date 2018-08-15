@@ -32,24 +32,25 @@ bool question(string question, string positive, string negative,
 		if (!cin.fail()) {
 			if (input.empty()) {
 				if (default_value == positive) {
-					cout << "Your default input was positive."<< endl;
+					cout << "Your default input was positive." << endl;
 					return true;
 				} else {
-					cout << "Your default input was negative."<< endl;
+					cout << "Your default input was negative." << endl;
 					return false;
 				}
 
 			} else {
 				if (input == positive) {
 					retry = false;
-					cout << "Your input was positive."<< endl;
+					cout << "Your input was positive." << endl;
 					return true;
 				} else if (input == negative) {
 					retry = false;
-					cout << "Your input was negative."<< endl;
+					cout << "Your input was negative." << endl;
 					return false;
 				} else {
-					cout << "Wrong input detected. Request will start soon." << endl;
+					cout << "Wrong input detected. Request will start soon."
+							<< endl;
 					retry = true;
 				}
 			}
@@ -181,7 +182,7 @@ string getInput(string bez) {
 	return line;
 }
 
-address interactiveAddAddress() {
+address getAddressInteractivelyFromInput() {
 	address addresse;
 	addresse.setName(getInput("Name"));
 	addresse.setVorname(getInput("Vorname"));
@@ -194,12 +195,82 @@ address interactiveAddAddress() {
 	return addresse;
 }
 
+void searchAddressInFileContent(address searchAddress, string filename) {
+	ifstream info;
+	string readline;
+	unsigned long long ULL_count = 0;
+	address readAddress;
+	info.open(filename);
+	if (!info.fail()) {
+		while (getline(info, readline)) {
+			ULL_count++;
+			address readAddress = address::parseAddress(readline);
+			cout << "Read address: " << readAddress.getSaveString() << endl;
+
+			if (!searchAddress.getName().empty()) {
+				if (readAddress.getName() == searchAddress.getName()) {
+					cout << ULL_count << readline << endl;
+				} else {
+					cout << "Name not found." << endl;
+				}
+			}
+			if (!searchAddress.getVorname().empty()) {
+				if (readAddress.getVorname() == searchAddress.getVorname()) {
+					cout << ULL_count << readline << endl;
+				} else {
+					cout << "Name not found." << endl;
+				}
+			}
+			if (!searchAddress.getFormattedGeburtstag().empty()) {
+				if (readAddress.getFormattedGeburtstag()
+						== searchAddress.getFormattedGeburtstag()) {
+					cout << ULL_count << readline << endl;
+				} else {
+					cout << "Name not found." << endl;
+				}
+			}
+			if (!searchAddress.getHausnummer().empty()) {
+				if (readAddress.getHausnummer()
+						== searchAddress.getHausnummer()) {
+					cout << ULL_count << readline << endl;
+				} else {
+					cout << "Name not found." << endl;
+				}
+			}
+			if (!searchAddress.getOrt().empty()) {
+				if (readAddress.getOrt() == searchAddress.getOrt()) {
+					cout << ULL_count << readline << endl;
+				} else {
+					cout << "Name not found." << endl;
+				}
+			}
+			if (!searchAddress.getPostleitzahl().empty()) {
+				if (readAddress.getPostleitzahl()
+						== searchAddress.getPostleitzahl()) {
+					cout << ULL_count << readline << endl;
+				} else {
+					cout << "Name not found." << endl;
+				}
+			}
+		}
+	} else {
+		cerr << "File not found: " << filename << endl;
+	}
+	info.close();
+}
+
+void searchAddressInteractively(string filename) {
+	cout << "Please give me your Addressdatainformation" << endl;
+	address address = getAddressInteractivelyFromInput();
+	searchAddressInFileContent(address, filename);
+}
+
 void showvalue(string value, bool b) {
 	cout << value << ":" << b << endl;
 }
 
 int main(int argc, char **argv) {
-	bool add, remove, search, interactive, count;
+	bool add, remove, search, interactive, kp, count;
 	string addressfile = "addressen.csv";
 	stringstream ss();
 	string params;
@@ -216,20 +287,25 @@ int main(int argc, char **argv) {
 		interactive = hastoken(params, "-i");
 		remove = hastoken(params, "-r");
 		count = hastoken(params, "-c");
+		kp = hastoken(params, "-k");
 		showvalue("add", add);
 		showvalue("search", search);
 		showvalue("interactive", interactive);
 		showvalue("remove", remove);
 		showvalue("count", count);
+		showvalue("koelnerphonetic", kp);
 
 		if (add && interactive) {
-			address address = interactiveAddAddress();
+			address address = getAddressInteractivelyFromInput();
 			writeAddress(addressfile, address);
 		}
 		if (remove && interactive) {
 			removeDataInteractively(addressfile);
 		}
 		if (search && interactive) {
+			searchAddressInteractively(addressfile);
+		}
+		if (search && interactive && kp) {
 			cout << "Not yet implemented." << endl;
 		}
 		if (search && !interactive) {

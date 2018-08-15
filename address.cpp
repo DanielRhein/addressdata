@@ -130,9 +130,11 @@ address address::parseAddress(string strAddress)
 	size_t pos;
 	string token;
 	int i=0;
-	while((pos=strAddress.find(DELIMITER)) != string::npos)
+	while((pos=strAddress.find(DELIMITER,pos)) != string::npos)
 	{
 		token = strAddress.substr(0,pos);
+		cout<<"read token" << token << endl;
+		pos = pos + token.size();
 		switch(i)
 		{
 		case 0://Name

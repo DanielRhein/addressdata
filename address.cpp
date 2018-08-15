@@ -125,16 +125,18 @@ address address::parseAddress(string strAddress)
 {
 	address result;
 	if (strAddress.empty()) {
+		cout<<" Addresse  " << strAddress << " is empty " << endl;
 		return result;
 	}
-	size_t pos;
+	size_t pos=0;
 	string token;
 	int i=0;
 	while((pos=strAddress.find(DELIMITER,pos)) != string::npos)
 	{
 		token = strAddress.substr(0,pos);
-		cout<<"read token" << token << endl;
-		pos = pos + token.size();
+		strAddress = strAddress.substr(pos+1,strAddress.length());
+		cout<<" read token: " << token << " at ( " << pos<< " ) " << endl;
+		cout<<" String: " << strAddress << endl;
 		switch(i)
 		{
 		case 0://Name
@@ -143,11 +145,11 @@ address address::parseAddress(string strAddress)
 		case 1://Vorname
 			result.setVorname(token);
 		break;
-		case 2://Hausnummer
-			result.setHausnummer(token);
-		break;
-		case 3://Straße
+		case 2://Straße
 			result.setStrasse(token);
+		break;
+		case 3://Hausnummer
+			result.setHausnummer(token);
 		break;
 		case 4://Postleitzahl
 			result.setPostleitzahl(token);
@@ -155,12 +157,16 @@ address address::parseAddress(string strAddress)
 		case 5://Ort
 			result.setOrt(token);
 		break;
-		case 6://Geburtstag
-			result.setGeburtstag(address::parseDateTime(token));
-		break;
 		}
 		i++;
+		pos=0;
 	}
+	if (!strAddress.empty())
+	{
+			cout<<" Geburtstagssring: " << strAddress << endl;
+			result.setGeburtstag(address::parseDateTime(strAddress));
+	}
+	return result;
 }
 
 tm address::parseDateTime(string datetime)

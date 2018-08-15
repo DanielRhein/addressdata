@@ -204,6 +204,7 @@ void searchAddressInFileContent(address searchAddress, string filename) {
 	if (!info.fail()) {
 		while (getline(info, readline)) {
 			ULL_count++;
+			cout << "Readline: " << readline << endl;
 			address readAddress = address::parseAddress(readline);
 			cout << "Read address: " << readAddress.getSaveString() << endl;
 
@@ -218,7 +219,7 @@ void searchAddressInFileContent(address searchAddress, string filename) {
 				if (readAddress.getVorname() == searchAddress.getVorname()) {
 					cout << ULL_count << readline << endl;
 				} else {
-					cout << "Name not found." << endl;
+					cout << "Vorname not found." << endl;
 				}
 			}
 			if (!searchAddress.getFormattedGeburtstag().empty()) {
@@ -226,7 +227,7 @@ void searchAddressInFileContent(address searchAddress, string filename) {
 						== searchAddress.getFormattedGeburtstag()) {
 					cout << ULL_count << readline << endl;
 				} else {
-					cout << "Name not found." << endl;
+					cout << "Geburtstag not found." << endl;
 				}
 			}
 			if (!searchAddress.getHausnummer().empty()) {
@@ -234,14 +235,14 @@ void searchAddressInFileContent(address searchAddress, string filename) {
 						== searchAddress.getHausnummer()) {
 					cout << ULL_count << readline << endl;
 				} else {
-					cout << "Name not found." << endl;
+					cout << "Hausnummer not found." << endl;
 				}
 			}
 			if (!searchAddress.getOrt().empty()) {
 				if (readAddress.getOrt() == searchAddress.getOrt()) {
 					cout << ULL_count << readline << endl;
 				} else {
-					cout << "Name not found." << endl;
+					cout << "Ort not found." << endl;
 				}
 			}
 			if (!searchAddress.getPostleitzahl().empty()) {
@@ -249,7 +250,7 @@ void searchAddressInFileContent(address searchAddress, string filename) {
 						== searchAddress.getPostleitzahl()) {
 					cout << ULL_count << readline << endl;
 				} else {
-					cout << "Name not found." << endl;
+					cout << "PLZ not found." << endl;
 				}
 			}
 		}

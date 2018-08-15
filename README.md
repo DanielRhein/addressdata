@@ -28,7 +28,8 @@ In development
 | -a -i | interactively add an address | done 26.07 | master/develop |
 | -r -i | interactively remove an address | done 4.08 | task/r1 |
 | -c    | count address content | done 04.08 | task/c1 |
-| -s -i | interactively search an address | s | task/s1 |  
+| -s -i | interactively search an address | s | task/s1 |
+| -s -i -k | using Koelnerphonetic to find more than one address | s | task/s2 | 
 | -a | interactively add an address | add | task/add1 |
 | -r | interactively remove an address | remove | task/remove |
 | -s | interactively search an address | search | task/search |

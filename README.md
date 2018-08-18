@@ -1,5 +1,5 @@
-# addressdata
-a small c++ programm to collect addressdata 
+# Addressdata
+Is a small c++ programm to collect addressdata. 
 
 Author: Daniel Rhein 
 
@@ -7,7 +7,7 @@ Project started: 29.06.2018
 
 Project end: --.--.--
 
-#Mode
+## Programm commandline
 
 ```bash
 addressdata <options> [<addressdata>|id]
@@ -15,7 +15,7 @@ addressdata <options> [<addressdata>|id]
 
 ## Options
 
-| option | meaning | parameter | done |
+| optionname | meaning | parameter | done |
 |---|---|---|---|
 | -a     | adding addressdata | comma seperated address||
 | -r     | remove addressdata | id of the addressdata ||
@@ -25,6 +25,14 @@ addressdata <options> [<addressdata>|id]
 | -a -i  | adding addressdata interactively | none |*|
 | -r -i | remove interactively an address| none|*|
 | -s -i | search for a string interactively | none |*|
+
+## Dataparameter 
+
+| parametername | meaning | done |
+|---|---|---|
+| addressdata | data of an address | |
+| id | id of the addressdata | none ||
+
 
 ## Addressdata
 In germany the address data consists minimally of
@@ -47,13 +55,10 @@ as a part of the address.
 Every data is currently saved in an CSV-File. Each line is counted up, starting with 1.
 Saved addresses will identified by its line. 
 
-| addressdata | data of an address | |
-| id | id of the addressdata | none |*|
-
 # Project status
 In development
 
-#Planned steps
+##Planned development steps and their status
 
 | steps | features | status | task branch|
 |---|---|---|---|

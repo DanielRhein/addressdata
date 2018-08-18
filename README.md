@@ -17,7 +17,7 @@ addressdata <options> [<addressdata>|id]
 
 | optionname | meaning | parameter | done |
 |---|---|---|---|
-| -a     | adding addressdata | comma seperated address||
+| -a     | adding addressdata | comma separated address|*|
 | -r     | remove addressdata | id of the addressdata ||
 | -s     | search for Addressdata | string you are searching for||
 | -c     | count content of addressdata | none |*|

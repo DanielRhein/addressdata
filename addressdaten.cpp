@@ -58,11 +58,11 @@ bool question(string question, string positive, string negative,
 	} while (retry);
 }
 
-void removeData(string filename, unsigned long long &ULL_id) {
+void removeData(string filename, u_int32_t &ULL_id) {
 	ifstream info;
 	ofstream ostream;
 	string readline;
-	unsigned long long ULL_count = 0;
+	u_int32_t ULL_count = 0;
 
 	cout << "Loading data of file " << filename << endl;
 	info.open(filename);
@@ -96,7 +96,7 @@ void removeDataInteractively(string filename) {
 	ifstream info;
 	string readline;
 	stringstream ss;
-	unsigned long long ULL_count = 0;
+	u_int32_t ULL_count = 0;
 	cout << "Loading data of file " << filename << endl;
 	info.open(filename);
 	cout << "Counting data of file " << filename << endl;
@@ -116,10 +116,10 @@ void removeDataInteractively(string filename) {
 	info.close();
 }
 
-void countFileContent(string filename) {
+u_int32_t countFileContent(string filename) {
 	ifstream info;
 	string readline;
-	unsigned long long ULL_count = 0;
+	u_int32_t ULL_count = 0;
 	cout << "Loading data of file " << filename << endl;
 	info.open(filename);
 	cout << "Counting data of file " << filename << endl;
@@ -131,7 +131,9 @@ void countFileContent(string filename) {
 		cerr << "File not found: " << filename << endl;
 	}
 	info.close();
-	cout << "I've counted " << ULL_count << " address in address data." << endl;
+	cout << "I've counted " << ULL_count << " addresses in address data."
+			<< endl;
+	return ULL_count;
 }
 
 void writeAddress(string filename, address addresse) {
@@ -198,7 +200,7 @@ address getAddressInteractivelyFromInput() {
 void searchAddressInFileContent(address searchAddress, string filename) {
 	ifstream info;
 	string readline;
-	unsigned long long ULL_count = 0;
+	u_int32_t ULL_count = 0;
 	address readAddress;
 	info.open(filename);
 	if (!info.fail()) {
@@ -266,32 +268,24 @@ void searchAddressInteractively(string filename) {
 	searchAddressInFileContent(address, filename);
 }
 
-void addAddress(string argv,string filename)
-{
+void addAddress(string argv, string filename) {
 	cout << "Reading address " << argv << endl;
 	address myaddress = address::parseAddress(argv);
-    cout << "Read address: " << myaddress.getSaveString() << endl;
-	writeAddress(filename,myaddress);
+	cout << "Read address: " << myaddress.getSaveString() << endl;
+	writeAddress(filename, myaddress);
 	cout << "Saved address to file " << filename << endl;
 }
 
-string toString(char **args,int argc)
-{
+string toString(char **args, int argc) {
 	cout << "Retrieve parameter with count " << argc << endl;
 	stringstream mystringstream;
-	for(int i=2;i<argc;i++)
-	{
-		if (i==8)
-		{
+	for (int i = 2; i < argc; i++) {
+		if (i == 8) {
 			mystringstream << args[i] << " ";
-		}
-		else if(i==9)
-		{
+		} else if (i == 9) {
 			mystringstream << args[i];
-		}
-		else
-		{
-		mystringstream << args[i] << ";";
+		} else {
+			mystringstream << args[i] << ";";
 		}
 		cout << "Reading parameter " << args[i] << endl;
 	}
@@ -301,6 +295,7 @@ string toString(char **args,int argc)
 void showvalue(string value, bool b) {
 	cout << value << ":" << b << endl;
 }
+
 
 int main(int argc, char **argv) {
 	bool add, remove, search, interactive, kp, count;
@@ -345,25 +340,34 @@ int main(int argc, char **argv) {
 			cout << "Not yet implemented." << endl;
 		}
 		if (remove && !interactive) {
-			cout << "Not yet implemented." << endl;
-		}
-		if (add && !interactive)
-		{
-			cout << "Add addressdata" << endl;
-			if (argc > 2)
-			{
-				string args = toString(argv,argc);
-				if(!args.empty())
-				{
-					addAddress(args,addressfile);
+			cout << "Remove addressdata." << endl;
+			if (argc > 2) {
+				u_int32_t ULL_id = 0;
+				ULL_id = atoi(argv[2]);
+				cout << "Addressdata Nr. " << argv[2] << "will be transformed to " <<
+						ULL_id << endl;
+				u_int32_t ULL_count = countFileContent(addressfile);
+				if (ULL_id > 0 && ULL_id <= ULL_count) {
+					removeData(addressfile, ULL_id);
+				} else {
+					cerr << "Your id " << ULL_id
+							<< " is not in range of the current count"
+							<< ULL_count << endl;
 				}
-				else
-				{
+			} else {
+				cerr << "Nicht genuegend Parameter." << endl;
+			}
+		}
+		if (add && !interactive) {
+			cout << "Add addressdata." << endl;
+			if (argc > 2) {
+				string args = toString(argv, argc);
+				if (!args.empty()) {
+					addAddress(args, addressfile);
+				} else {
 					cerr << "Addressdaten nicht gefunden." << endl;
 				}
-			}
-			else
-			{
+			} else {
 				cerr << "Nicht genuegend Parameter." << endl;
 			}
 		}

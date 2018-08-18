@@ -140,21 +140,27 @@ address address::parseAddress(string strAddress)
 		switch(i)
 		{
 		case 0://Name
+			cout<<" Set Name: " << token << endl;
 			result.setName(token);
 		break;
 		case 1://Vorname
+			cout<<" Set Vorname: " << token << endl;
 			result.setVorname(token);
 		break;
 		case 2://Straße
+			cout<<" Set Strasse: " << token << endl;
 			result.setStrasse(token);
 		break;
 		case 3://Hausnummer
+			cout<<" Set Hausnummer: " << token << endl;
 			result.setHausnummer(token);
 		break;
 		case 4://Postleitzahl
+			cout<<" Set Plz: " << token << endl;
 			result.setPostleitzahl(token);
 		break;
 		case 5://Ort
+			cout<<" Set Ort: " << token << endl;
 			result.setOrt(token);
 		break;
 		}

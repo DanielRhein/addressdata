@@ -37,16 +37,16 @@ addressdata <options> [<addressdata>|id]
 ## Addressdata
 In germany the address data consists minimally of
 
-* Familyname
-* Name
-* Streetname
-* Housenumber
+* familyname
+* name
+* streetname
+* housenumber
 * ZIP
-* CITY
+* city
 
 In addition this programm will also take care of
 
-* Birthday 
+* birthday 
 
 as a part of the address.
  
@@ -58,7 +58,7 @@ Saved addresses will identified by its line.
 # Project status
 In development
 
-##Planned development steps and their status
+#Planned development steps and their status
 
 | steps | features | status | task branch|
 |---|---|---|---|
@@ -66,7 +66,7 @@ In development
 | -r -i | interactively remove an address | done 4.08 | task/r1 |
 | -c    | count address content | done 04.08 | task/c1 |
 | -s -i | interactively simple search of an address | done 15.08.2018 | task/s1 |  
-| -a | interactively add an address | add | task/add1 |
+| -a | interactively add an address | done 18.08.2018 | task/add1 |
 | -r | interactively remove an address | remove | task/remove |
 | -s | interactively search an address | search | task/search | 
 | clean up and refacotring | clean code and refactoring | task/clean | 

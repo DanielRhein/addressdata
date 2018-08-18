@@ -136,7 +136,7 @@ void countFileContent(string filename) {
 
 void writeAddress(string filename, address addresse) {
 	ofstream outputfile;
-	outputfile.open(filename, ios_base::app & ios_base::out);
+	outputfile.open(filename, ios_base::app);
 	if (!outputfile.fail()) {
 		outputfile << addresse.getSaveString() << endl;
 	} else {
@@ -266,6 +266,38 @@ void searchAddressInteractively(string filename) {
 	searchAddressInFileContent(address, filename);
 }
 
+void addAddress(string argv,string filename)
+{
+	cout << "Reading address " << argv << endl;
+	address myaddress = address::parseAddress(argv);
+    cout << "Read address: " << myaddress.getSaveString() << endl;
+	writeAddress(filename,myaddress);
+	cout << "Saved address to file " << filename << endl;
+}
+
+string toString(char **args,int argc)
+{
+	cout << "Retrieve parameter with count " << argc << endl;
+	stringstream mystringstream;
+	for(int i=2;i<argc;i++)
+	{
+		if (i==8)
+		{
+			mystringstream << args[i] << " ";
+		}
+		else if(i==9)
+		{
+			mystringstream << args[i];
+		}
+		else
+		{
+		mystringstream << args[i] << ";";
+		}
+		cout << "Reading parameter " << args[i] << endl;
+	}
+	return mystringstream.str();
+}
+
 void showvalue(string value, bool b) {
 	cout << value << ":" << b << endl;
 }
@@ -314,6 +346,26 @@ int main(int argc, char **argv) {
 		}
 		if (remove && !interactive) {
 			cout << "Not yet implemented." << endl;
+		}
+		if (add && !interactive)
+		{
+			cout << "Add addressdata" << endl;
+			if (argc > 2)
+			{
+				string args = toString(argv,argc);
+				if(!args.empty())
+				{
+					addAddress(args,addressfile);
+				}
+				else
+				{
+					cerr << "Addressdaten nicht gefunden." << endl;
+				}
+			}
+			else
+			{
+				cerr << "Nicht genuegend Parameter." << endl;
+			}
 		}
 		if (count) {
 			countFileContent(addressfile);

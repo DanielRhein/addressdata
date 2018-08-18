@@ -121,7 +121,7 @@ void address::setHausnummer(string hausnummer)
 }
 
 
-address address::parseAddress(string strAddress)
+address address::parseAddress(string strAddress,string delimiter)
 {
 	address result;
 	if (strAddress.empty()) {
@@ -131,7 +131,7 @@ address address::parseAddress(string strAddress)
 	size_t pos=0;
 	string token;
 	int i=0;
-	while((pos=strAddress.find(DELIMITER,pos)) != string::npos)
+	while((pos=strAddress.find(delimiter,pos)) != string::npos)
 	{
 		token = strAddress.substr(0,pos);
 		strAddress = strAddress.substr(pos+1,strAddress.length());

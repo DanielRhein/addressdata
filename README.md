@@ -18,8 +18,8 @@ addressdata <options> [<addressdata>|id]
 | optionname | meaning | parameter | done |
 |---|---|---|---|
 | -a     | adding addressdata | comma separated address|*|
-| -r     | remove addressdata | id of the addressdata ||
-| -s     | search for Addressdata | string you are searching for||
+| -r     | remove addressdata | id of the addressdata |*|
+| -s     | search for Addressdata | string you are searching for|*|
 | -c     | count content of addressdata | none |*|
 | -i     | interactively choose add remove or search for address | none|*|
 | -a -i  | adding addressdata interactively | none |*|
@@ -49,13 +49,30 @@ In addition this programm will also take care of
 * birthday 
 
 as a part of the address.
+
+###Example
+
+
+```bash
+addressdata -a Max,Mustermann,Musterstrasse,2,66531 Phantasiestadt,01.01.00 00:00:00
+```
+
  
 ## Id 
 
 Every data is currently saved in an CSV-File. Each line is counted up, starting with 1.
 Saved addresses will identified by its line. 
 
+###Example
+
+
+```bash
+addressdata -r id
+```
+
+
 # Project status
+
 In development
 
 #Planned development steps and their status
@@ -68,8 +85,8 @@ In development
 | -s -i | interactively simple search of an address | done 15.08.2018 | task/s1 |  
 | -a | interactively add an address | done 18.08.2018 | task/add1 |
 | -r | interactively remove an address | done 18.08.2018 | task/remove |
-| -s | interactively search an address | search | task/search | 
-| clean up and refacotring | clean code and refactoring | task/clean | 
+| -s | interactively search an address | done 18.08.2018 | task/search | 
+| clean up and refactoring | clean code and refactoring | task/clean | 
 | test | test sources | test |task/test|
 | document | document sources | doxygen | task/doxygen | 
 | man-document | man documentation | man | task/man |

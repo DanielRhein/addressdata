@@ -14,7 +14,6 @@
 using namespace std;
 class address {
 private:
-	static const string DELIMITER;
 	static const char* TIMESTRING;
 	string name;
 	string vorname;
@@ -24,6 +23,7 @@ private:
 	string ort;
 	tm geburtstag;
 public:
+	static const string DELIMITER;
 	address();
 	string getName();
 	string getVorname();
@@ -33,7 +33,7 @@ public:
 	string getOrt();
 	string getFormattedGeburtstag();
 	string getSaveString();
-	static address parseAddress(string address);
+	static address parseAddress(string address,string delimiter);
 	static tm parseDateTime(string datetime);
 	tm getGeburtstag();
 	void setName(string name);

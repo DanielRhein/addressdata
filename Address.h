@@ -12,7 +12,7 @@
 #include <iostream>
 #include <ctime>
 using namespace std;
-class address {
+class Address {
 private:
 	static const char* TIMESTRING;
 	string name;
@@ -24,7 +24,7 @@ private:
 	tm geburtstag;
 public:
 	static const string DELIMITER;
-	address();
+	Address();
 	string getName();
 	string getVorname();
 	string getStrasse();
@@ -33,7 +33,7 @@ public:
 	string getOrt();
 	string getFormattedGeburtstag();
 	string getSaveString();
-	static address parseAddress(string address,string delimiter);
+	static Address parseAddress(string address,string delimiter);
 	static tm parseDateTime(string datetime);
 	tm getGeburtstag();
 	void setName(string name);
@@ -43,7 +43,7 @@ public:
 	void setPostleitzahl(string postleitzahl);
 	void setOrt(string ort);
 	void setGeburtstag(tm geburtstag);
-	virtual ~address();
+	virtual ~Address();
 };
 
 #endif /* ADDRESS_H_ */

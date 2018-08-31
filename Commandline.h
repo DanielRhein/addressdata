@@ -16,8 +16,8 @@ public:
 	Commandline();
 	Commandline(bool verbose);
 	Commandline(bool verbose,bool newline);
-	int getIntInput(std::string question,bool retry=false);
-	std::string getStrInput(std::string question,bool retry=false);
+	int getIntInput(std::string question,bool retry);
+	std::string getStrInput(std::string question,bool retry);
 	void writeOutput(std::string output);
 	void verboseOutput(std::string output);
 	void setVerbose(bool value);

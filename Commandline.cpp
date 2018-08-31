@@ -24,13 +24,13 @@ Commandline::Commandline(bool verbose, bool newline) {
 	this->newline = newline;
 }
 
-int Commandline::getIntInput(std::string question, bool retry = false) {
+int Commandline::getIntInput(std::string question, bool retry) {
 	int returnvalue=0;
 	if (retry) {
 		do {
 			writeOutput(question);
 			std::cin >> returnvalue;
-		} while (returnvalue==NULL);
+		} while (returnvalue<=0);
 	} else {
 		writeOutput(question);
 		std::cin >> returnvalue;
@@ -38,7 +38,7 @@ int Commandline::getIntInput(std::string question, bool retry = false) {
 	return returnvalue;
 }
 
-std::string Commandline::getStrInput(std::string question, bool retry = false) {
+std::string Commandline::getStrInput(std::string question, bool retry) {
 	std::string returnvalue;
 	if (retry) {
 		do {
@@ -101,6 +101,11 @@ void Commandline::verboseShowValue(std::string value, std::string strValue) {
 	std::cout << value << " " << strValue << std::endl;
 }
 
+std::string Commandline::verboseGetValue(bool value)
+{
+	if (value) return "true";
+	if (!value) return "false";
+}
 Commandline::~Commandline() {
 }
 

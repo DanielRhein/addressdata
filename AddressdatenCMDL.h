@@ -13,9 +13,8 @@
 #include <vector>
 #include <sstream>
 #include "Address.h"
-
 namespace programm {
-using std;
+
 class AddressdatenCMDL {
 public:
 	AddressdatenCMDL();

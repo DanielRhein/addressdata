@@ -8,7 +8,7 @@
 #include "AddressdatenCMDL.h"
 
 namespace programm {
-
+using namespace std;
 AddressdatenCMDL::AddressdatenCMDL() {
 	// TODO Auto-generated constructor stub
 

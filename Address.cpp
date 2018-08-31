@@ -5,13 +5,13 @@
  *      Author: daniel
  */
 
-#include "address.h"
 #include <sstream>
+#include "Address.h"
 
-const string address::DELIMITER=";";
-const char* address::TIMESTRING="%d.%m.%Y %H:%M:%S";
+const string Address::DELIMITER=";";
+const char* Address::TIMESTRING="%d.%m.%Y %H:%M:%S";
 
-address::address() {
+Address::Address() {
 	name="";
 	vorname="";
 	strasse="";
@@ -22,11 +22,11 @@ address::address() {
 	geburtstag=t;
 }
 
-address::~address() {
+Address::~Address() {
 
 }
 
-string address::getFormattedGeburtstag(void)
+string Address::getFormattedGeburtstag(void)
 {
 	tm * geburtstagptr = &geburtstag;
 	char returnval[80] = "";
@@ -34,38 +34,38 @@ string address::getFormattedGeburtstag(void)
 	return returnval;
 }
 
-tm address::getGeburtstag(void)
+tm Address::getGeburtstag(void)
 {
 	return geburtstag;
 }
 
-string address::getHausnummer(void)
+string Address::getHausnummer(void)
 {
 	return hausnummer;
 }
 
-string address::getName(void)
+string Address::getName(void)
 {
 	return name;
 }
 
 
-string address::getVorname(void)
+string Address::getVorname(void)
 {
 	return vorname;
 }
 
-string address::getOrt()
+string Address::getOrt()
 {
 	return ort;
 }
 
-string address::getPostleitzahl()
+string Address::getPostleitzahl()
 {
 	return postleitzahl;
 }
 
-string address::getSaveString()
+string Address::getSaveString()
 {
 	stringstream stream;
 	stream << name
@@ -79,51 +79,51 @@ string address::getSaveString()
 }
 
 
-string address::getStrasse()
+string Address::getStrasse()
 {
 	return strasse;
 }
 
-void address::setGeburtstag(tm geburtstag)
+void Address::setGeburtstag(tm geburtstag)
 {
 	this->geburtstag = geburtstag;
 }
 
-void address::setName(string name)
+void Address::setName(string name)
 {
 	this->name = name;
 }
 
-void address::setOrt(string ort)
+void Address::setOrt(string ort)
 {
 	this->ort = ort;
 }
 
-void address::setPostleitzahl(string postleitzahl)
+void Address::setPostleitzahl(string postleitzahl)
 {
 	this->postleitzahl = postleitzahl;
 }
 
-void address::setStrasse(string strasse)
+void Address::setStrasse(string strasse)
 {
 	this->strasse = strasse;
 }
 
 
-void address::setVorname(string vorname)
+void Address::setVorname(string vorname)
 {
 	this->vorname = vorname;
 }
 
-void address::setHausnummer(string hausnummer)
+void Address::setHausnummer(string hausnummer)
 {
 	this->hausnummer = hausnummer;
 }
 
 
-address address::parseAddress(string strAddress,string delimiter)
+Address Address::parseAddress(string strAddress,string delimiter)
 {
-	address result;
+	Address result;
 	if (strAddress.empty()) {
 		cout<<" Addresse  " << strAddress << " is empty " << endl;
 		return result;
@@ -170,12 +170,12 @@ address address::parseAddress(string strAddress,string delimiter)
 	if (!strAddress.empty())
 	{
 			cout<<" Geburtstagssring: " << strAddress << endl;
-			result.setGeburtstag(address::parseDateTime(strAddress));
+			result.setGeburtstag(Address::parseDateTime(strAddress));
 	}
 	return result;
 }
 
-tm address::parseDateTime(string datetime)
+tm Address::parseDateTime(string datetime)
 {
 	struct tm t;
 	if (datetime=="") return t;

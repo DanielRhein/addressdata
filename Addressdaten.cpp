@@ -2,7 +2,8 @@
 #include <fstream>
 #include <vector>
 #include <sstream>
-#include "address.h"
+
+#include "Address.h"
 using namespace std;
 
 void showFileContent(string filename) {
@@ -136,7 +137,7 @@ u_int32_t countFileContent(string filename) {
 	return ULL_count;
 }
 
-void writeAddress(string filename, address addresse) {
+void writeAddress(string filename, Address addresse) {
 	ofstream outputfile;
 	outputfile.open(filename, ios_base::app);
 	if (!outputfile.fail()) {
@@ -184,8 +185,8 @@ string getInput(string bez) {
 	return line;
 }
 
-address getAddressInteractivelyFromInput() {
-	address addresse;
+Address getAddressInteractivelyFromInput() {
+	Address addresse;
 	addresse.setName(getInput("Name"));
 	addresse.setVorname(getInput("Vorname"));
 	addresse.setStrasse(getInput("Straße"));
@@ -193,21 +194,21 @@ address getAddressInteractivelyFromInput() {
 	addresse.setPostleitzahl(getInput("PLZ"));
 	addresse.setOrt(getInput("Ort"));
 	addresse.setGeburtstag(
-			address::parseDateTime(getInput("Geburtstag (10.1.2017 00:00:00")));
+			Address::parseDateTime(getInput("Geburtstag (10.1.2017 00:00:00")));
 	return addresse;
 }
 
-void searchAddressInFileContent(address searchAddress, string filename) {
+void searchAddressInFileContent(Address searchAddress, string filename) {
 	ifstream info;
 	string readline;
 	u_int32_t ULL_count = 0;
-	address readAddress;
+	Address readAddress;
 	info.open(filename);
 	if (!info.fail()) {
 		while (getline(info, readline)) {
 			ULL_count++;
 			cout << "Readline: " << readline << endl;
-			address readAddress = address::parseAddress(readline,address::DELIMITER);
+			Address readAddress = Address::parseAddress(readline,Address::DELIMITER);
 			cout << "Read address: " << readAddress.getSaveString() << endl;
 
 			if (!searchAddress.getName().empty()) {
@@ -264,13 +265,13 @@ void searchAddressInFileContent(address searchAddress, string filename) {
 
 void searchAddressInteractively(string filename) {
 	cout << "Please give me your Addressdatainformation" << endl;
-	address address = getAddressInteractivelyFromInput();
+	Address address = getAddressInteractivelyFromInput();
 	searchAddressInFileContent(address, filename);
 }
 
 void addAddress(string argv, string filename) {
 	cout << "Reading address " << argv << endl;
-	address myaddress = address::parseAddress(argv,",");
+	Address myaddress = Address::parseAddress(argv,",");
 	cout << "Read address: " << myaddress.getSaveString() << endl;
 	writeAddress(filename, myaddress);
 	cout << "Saved address to file " << filename << endl;
@@ -323,7 +324,7 @@ int main(int argc, char **argv) {
 		showvalue("koelnerphonetic", kp);
 
 		if (add && interactive) {
-			address address = getAddressInteractivelyFromInput();
+			Address address = getAddressInteractivelyFromInput();
 			writeAddress(addressfile, address);
 		}
 		if (remove && interactive) {
@@ -340,7 +341,7 @@ int main(int argc, char **argv) {
 			if (argc > 2) {
 				string args = toString(argv, argc);
 				if (!args.empty()) {
-					searchAddressInFileContent(address::parseAddress(args,","),
+					searchAddressInFileContent(Address::parseAddress(args,","),
 							addressfile);
 				} else {
 					cerr << "Addressdaten nicht gefunden." << endl;

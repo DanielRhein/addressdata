@@ -31,10 +31,19 @@
 *.exe
 *.out
 *.app
+addressdaten
 
 # CMakeFiles
 cmake_install.cmake
 Makefile
+CMakeCache.txt
+CMakeFiles/
+
+#IDE files
+.cproject
+.project
+.settings/
+
 
 #TestFiles
 addressen.csv

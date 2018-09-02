@@ -46,6 +46,37 @@ public:
 }/* namespace programm */
 
 
+namespace error {
+class error : public std::streambuf
+{
+	std::ostream& operator<<(std::ostream& os)
+			{
+				    // write obj to stream
+				    return os;
+			}
+			std::ostream& operator<<(std::string val)
+			{
+					    // write obj to stream
+					    return std::cerr << val;
+			}
+		friend std::ostream &operator<<(std::ostream &output,const int &val)
+		{
+			output << val;
+			return output;
+		}
+		friend std::ostream &operator<<(std::ostream &output,const std::string &val)
+		{
+				output << val;
+				return output;
+			}
+		friend std::ostream &operator<<(std::ostream &output,const bool &val)
+		{
+					output << val;
+					return output;
+		}
+};
+} /* namespace error */
+
 namespace debug {
 
 class debug : public std::streambuf
@@ -56,6 +87,16 @@ public:
 	static std::string verboseShowValue(bool value);
 	static void showVerbose(bool value);
 	static bool verbose();
+	std::ostream& operator<<(std::ostream& os)
+		{
+			    // write obj to stream
+			    return os;
+		}
+		std::ostream& operator<<(std::string val)
+		{
+				    // write obj to stream
+				    return std::cout << val;
+		}
 	friend std::ostream &operator<<(std::ostream &output,const int &val)
 	{
 		if (active)

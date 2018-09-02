@@ -7,11 +7,12 @@
 
 #include "AddressdatenCMDL.h"
 
+
 namespace programm {
 using namespace std;
+using namespace debug;
 AddressdatenCMDL::AddressdatenCMDL() {
 	// TODO Auto-generated constructor stub
-
 }
 
 void AddressdatenCMDL::showFileContent(string filename) {
@@ -20,7 +21,7 @@ void AddressdatenCMDL::showFileContent(string filename) {
 	info.open(filename);
 	if (!info.fail()) {
 		while (getline(info, readline)) {
-			cout << readline << endl;
+			mycmd << readline << mycmd.endl();
 		}
 	} else {
 		cerr << "File not found: " << filename << endl;
@@ -33,7 +34,7 @@ bool  AddressdatenCMDL::question(string question, string positive, string negati
 	bool retry = true;
 	do {
 		string input = "";
-		cout << question << endl;
+		mycmd << question << mycmd.endl();
 		cout << "(" << positive << "/" << negative
 				<< ") default on empty input (" << default_value << "): ";
 		getline(cin, input);
@@ -41,25 +42,24 @@ bool  AddressdatenCMDL::question(string question, string positive, string negati
 		if (!cin.fail()) {
 			if (input.empty()) {
 				if (default_value == positive) {
-					cout << "Your default input was positive." << endl;
+					mycmd << "Your default input was positive." << mycmd.endl();
 					return true;
 				} else {
-					cout << "Your default input was negative." << endl;
+					mycmd <<"Your default input was negative."<< mycmd.endl();
 					return false;
 				}
 
 			} else {
 				if (input == positive) {
 					retry = false;
-					cout << "Your input was positive." << endl;
+					mycmd << "Your input was positive." << mycmd.endl();
 					return true;
 				} else if (input == negative) {
 					retry = false;
-					cout << "Your input was negative." << endl;
+					mycmd << "Your input was positive." << mycmd.endl();
 					return false;
 				} else {
-					cout << "Wrong input detected. Request will start soon."
-							<< endl;
+					mycmd << "Wrong input detected. Request will start soon." << mycmd.endl();
 					retry = true;
 				}
 			}

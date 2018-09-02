@@ -13,9 +13,12 @@
 #include <vector>
 #include <sstream>
 #include "Address.h"
+#include "Commandline.h"
 namespace programm {
 
 class AddressdatenCMDL {
+private:
+	cmd mycmd;
 public:
 	AddressdatenCMDL();
 	void showFileContent(string filename);

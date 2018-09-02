@@ -11,30 +11,77 @@
 #include <iostream>
 namespace programm {
 
-class Commandline {
+class cmd : public std::streambuf {
 public:
-	Commandline();
-	Commandline(bool verbose);
-	Commandline(bool verbose,bool newline);
-	int getIntInput(std::string question,bool retry);
-	std::string getStrInput(std::string question,bool retry);
-	void writeOutput(std::string output);
-	void verboseOutput(std::string output);
-	void setVerbose(bool value);
-	void setUseEndline(bool newline);
-	void verboseShowValue(bool value);
-	void verboseShowValue(int value);
-	void verboseShowValue(std::string value);
-	void verboseShowValue(std::string value,bool boolValue);
-	void verboseShowValue(std::string value,int intValue);
-	void verboseShowValue(std::string value,std::string strValue);
-	virtual ~Commandline();
-private:
-	bool verbose;
-	bool newline;
-	std::string verboseGetValue(bool value);
+	static std::string showValue(bool value);
+	static std::string endl();
+	friend std::ostream &operator<<(std::ostream &output,const int &val)
+	{
+		output << val;
+		return output;
+	}
+
+	std::ostream& operator<<(std::ostream& os)
+	{
+		    // write obj to stream
+		    return os;
+	}
+	std::ostream& operator<<(std::string val)
+	{
+			    // write obj to stream
+			    return std::cout << val;
+	}
+	friend std::ostream &operator<<(std::ostream &output,const std::string &val)
+	{
+			output << val;
+			return output;
+	}
+	friend std::ostream &operator<<(std::ostream &output,const bool &val)
+	{
+		output << showValue(val);
+		return output;
+	}
 };
 
-} /* namespace programm */
+}/* namespace programm */
+
+
+namespace debug {
+
+class debug : public std::streambuf
+{
+public:
+	static bool active;
+	static std::string endl();
+	static std::string verboseShowValue(bool value);
+	static void showVerbose(bool value);
+	static bool verbose();
+	friend std::ostream &operator<<(std::ostream &output,const int &val)
+	{
+		if (active)
+		{
+		output << val;
+		}
+		return output;
+	}
+	friend std::ostream &operator<<(std::ostream &output,const std::string &val)
+	{
+		if (active)
+				{
+			output << val;
+				}
+			return output;
+	}
+	friend std::ostream &operator<<(std::ostream &output,const bool &val)
+	{
+		if (active)
+				{
+				output << verboseShowValue(val);
+				}
+				return output;
+	}
+};
+
+} /* namespace debug */
 
 #endif /* COMMANDLINE_H_ */

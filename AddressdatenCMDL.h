@@ -19,6 +19,8 @@ namespace programm {
 class AddressdatenCMDL {
 private:
 	cmd mycmd;
+	debug::debug dbg;
+	error::error err;
 public:
 	AddressdatenCMDL();
 	void showFileContent(string filename);

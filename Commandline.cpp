@@ -8,14 +8,14 @@
 #include "Commandline.h"
 
 namespace programm {
-std::string cmd::showValue(bool value)
-{
-	if (value) return "true";
-	if (!value) return "false";
+std::string cmd::showValue(bool value) {
+	if (value)
+		return "true";
+	if (!value)
+		return "false";
 }
 
-std::string cmd::endl()
-{
+std::string cmd::endl() {
 	return "\n";
 }
 
@@ -23,16 +23,15 @@ std::string cmd::endl()
 
 namespace debug {
 
-std::string debug::verboseShowValue(bool value)
-{
-	if (value) return "true";
-	if (!value) return "false";
+std::string debug::verboseShowValue(bool value) {
+	if (value)
+		return "true";
+	if (!value)
+		return "false";
 	return "";
 }
-std::string debug::endl()
-{
+std::string debug::endl() {
 	return "\n";
 }
-
 
 }

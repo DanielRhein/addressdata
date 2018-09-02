@@ -11,33 +11,34 @@
 #include <iostream>
 namespace programm {
 
-class cmd : public std::streambuf {
+class cmd: public std::streambuf {
 public:
 	static std::string showValue(bool value);
 	static std::string endl();
-	friend std::ostream &operator<<(std::ostream &output,const int &val)
-	{
+	friend std::ostream &operator<<(std::ostream &output, const int &val) {
 		output << val;
 		return output;
 	}
 
-	std::ostream& operator<<(std::ostream& os)
-	{
-		    // write obj to stream
-		    return os;
+	std::ostream& operator<<(std::ostream& os) {
+		// write obj to stream
+		return os;
 	}
-	std::ostream& operator<<(std::string val)
-	{
-			    // write obj to stream
-			    return std::cout << val;
+	std::ostream& operator<<(std::string val) {
+		// write obj to stream
+		return std::cout << val;
 	}
-	friend std::ostream &operator<<(std::ostream &output,const std::string &val)
-	{
-			output << val;
-			return output;
+
+	std::ostream& operator<<(u_int32_t val) {
+			// write obj to stream
+			return std::cout << val;
+		}
+	friend std::ostream &operator<<(std::ostream &output,
+			const std::string &val) {
+		output << val;
+		return output;
 	}
-	friend std::ostream &operator<<(std::ostream &output,const bool &val)
-	{
+	friend std::ostream &operator<<(std::ostream &output, const bool &val) {
 		output << showValue(val);
 		return output;
 	}
@@ -45,81 +46,68 @@ public:
 
 }/* namespace programm */
 
-
 namespace error {
-class error : public std::streambuf
-{
-	std::ostream& operator<<(std::ostream& os)
-			{
-				    // write obj to stream
-				    return os;
-			}
-			std::ostream& operator<<(std::string val)
-			{
-					    // write obj to stream
-					    return std::cerr << val;
-			}
-		friend std::ostream &operator<<(std::ostream &output,const int &val)
-		{
-			output << val;
-			return output;
-		}
-		friend std::ostream &operator<<(std::ostream &output,const std::string &val)
-		{
-				output << val;
-				return output;
-			}
-		friend std::ostream &operator<<(std::ostream &output,const bool &val)
-		{
-					output << val;
-					return output;
-		}
+class error: public std::streambuf {
+public:
+	std::ostream& operator<<(std::ostream& os) {
+		// write obj to stream
+		return os;
+	}
+	std::ostream& operator<<(std::string val) {
+		// write obj to stream
+		return std::cerr << val;
+	}
+	friend std::ostream &operator<<(std::ostream &output, const int &val) {
+		output << val;
+		return output;
+	}
+	friend std::ostream &operator<<(std::ostream &output,
+			const std::string &val) {
+		output << val;
+		return output;
+	}
+	friend std::ostream &operator<<(std::ostream &output, const bool &val) {
+		output << val;
+		return output;
+	}
 };
 } /* namespace error */
 
 namespace debug {
 
-class debug : public std::streambuf
-{
+class debug: public std::streambuf {
 public:
 	static bool active;
 	static std::string endl();
 	static std::string verboseShowValue(bool value);
 	static void showVerbose(bool value);
 	static bool verbose();
-	std::ostream& operator<<(std::ostream& os)
-		{
-			    // write obj to stream
-			    return os;
-		}
-		std::ostream& operator<<(std::string val)
-		{
-				    // write obj to stream
-				    return std::cout << val;
-		}
-	friend std::ostream &operator<<(std::ostream &output,const int &val)
-	{
-		if (active)
-		{
-		output << val;
+	std::ostream& operator<<(std::ostream& os) {
+		// write obj to stream
+		return os;
+	}
+	std::ostream& operator<<(std::string val) {
+		// write obj to stream
+		return std::cout << val;
+	}
+	friend std::ostream &operator<<(std::ostream &output, const int &val) {
+		if (active) {
+			output << val;
 		}
 		return output;
 	}
-	friend std::ostream &operator<<(std::ostream &output,const std::string &val)
-	{
-		if (active)
-				{
+	friend std::ostream &operator<<(std::ostream &output,
+			const std::string &val) {
+		if (active) {
 			output << val;
-				}
-			return output;
+		}
+		return output;
 	}
-	friend std::ostream &operator<<(std::ostream &output,const bool &val)
-	{
-		if (active)
-				{
-				output << verboseShowValue(val);
-				}
-				return output;
+	friend std::ostream &operator<<(std::ostream &output, const bool &val) {
+		if (active) {
+			output << verboseShowValue(val);
+		}
+		return output;
 	}
 };
 

@@ -24,7 +24,7 @@ void AddressdatenCMDL::showFileContent(string filename) {
 			mycmd << readline << mycmd.endl();
 		}
 	} else {
-		cerr << "File not found: " << filename << endl;
+		err << "File not found: " << filename << endl;
 	}
 	info.close();
 }
@@ -35,7 +35,7 @@ bool  AddressdatenCMDL::question(string question, string positive, string negati
 	do {
 		string input = "";
 		mycmd << question << mycmd.endl();
-		cout << "(" << positive << "/" << negative
+		mycmd << "(" << positive << "/" << negative
 				<< ") default on empty input (" << default_value << "): ";
 		getline(cin, input);
 
@@ -74,17 +74,17 @@ void AddressdatenCMDL::removeData(string filename, u_int32_t &ULL_id) {
 	string readline;
 	u_int32_t ULL_count = 0;
 
-	cout << "Loading data of file " << filename << endl;
+	dbg << "Loading data of file " << filename << endl;
 	info.open(filename);
 	ostream.open("temp.txt");
-	cout << "Reading data of file " << filename << endl;
+	dbg << "Reading data of file " << filename << endl;
 	if (!info.fail()) {
 		while (getline(info, readline)) {
 			ULL_count++;
 			if (ULL_id == ULL_count) {
-				cout << "Found entry:" << readline << endl;
+				mycmd << "Found entry:" << readline << endl;
 				if (question("Would you like to delete it", "Y", "N", "Y")) {
-					cout << "Entry will be deleted." << endl;
+					mycmd << "Entry will be deleted." << endl;
 				} else {
 					ostream << readline;
 				}
@@ -94,7 +94,7 @@ void AddressdatenCMDL::removeData(string filename, u_int32_t &ULL_id) {
 
 		}
 	} else {
-		cerr << "File not found: " << filename << endl;
+		err << "File not found: " << filename << endl;
 	}
 	info.close();
 	ostream.close();
@@ -107,9 +107,9 @@ void AddressdatenCMDL::removeDataInteractively(string filename) {
 	string readline;
 	stringstream ss;
 	u_int32_t ULL_count = 0;
-	cout << "Loading data of file " << filename << endl;
+	dbg << "Loading data of file " << filename << endl;
 	info.open(filename);
-	cout << "Counting data of file " << filename << endl;
+	dbg << "Counting data of file " << filename << endl;
 	if (!info.fail()) {
 		while (getline(info, readline)) {
 			ULL_count++;
@@ -121,7 +121,7 @@ void AddressdatenCMDL::removeDataInteractively(string filename) {
 			ss.clear();
 		}
 	} else {
-		cerr << "File not found: " << filename << endl;
+		err << "File not found: " << filename << endl;
 	}
 	info.close();
 }
@@ -130,18 +130,18 @@ u_int32_t AddressdatenCMDL::countFileContent(string filename) {
 	ifstream info;
 	string readline;
 	u_int32_t ULL_count = 0;
-	cout << "Loading data of file " << filename << endl;
+	dbg << "Loading data of file " << filename << endl;
 	info.open(filename);
-	cout << "Counting data of file " << filename << endl;
+	dbg << "Counting data of file " << filename << endl;
 	if (!info.fail()) {
 		while (getline(info, readline)) {
 			ULL_count++;
 		}
 	} else {
-		cerr << "File not found: " << filename << endl;
+		err << "File not found: " << filename << endl;
 	}
 	info.close();
-	cout << "I've counted " << ULL_count << " addresses in address data."
+	mycmd << "I've counted " << ULL_count << " addresses in address data."
 			<< endl;
 	return ULL_count;
 }
@@ -152,7 +152,7 @@ void AddressdatenCMDL::writeAddress(string filename, Address addresse) {
 	if (!outputfile.fail()) {
 		outputfile << addresse.getSaveString() << endl;
 	} else {
-		cerr << "Can't create file: " << filename << endl;
+		err << "Can't create file: " << filename << endl;
 	}
 }
 
@@ -182,7 +182,7 @@ void AddressdatenCMDL::split(const string& s, char delim, vector<string>& v) {
 string AddressdatenCMDL::getInput(string bez) {
 	string line;
 	do {
-		cout << bez << ": ";
+		mycmd << bez << ": ";
 		getline(cin, line);
 	} while (line.empty());
 	return line;
@@ -219,79 +219,79 @@ void AddressdatenCMDL::searchAddressInFileContent(Address searchAddress, string 
 	if (!info.fail()) {
 		while (getline(info, readline)) {
 			ULL_count++;
-			cout << "Readline: " << readline << endl;
+			dbg << "Readline: " << readline << endl;
 			Address readAddress = Address::parseAddress(readline,Address::DELIMITER);
-			cout << "Read address: " << readAddress.getSaveString() << endl;
+			dbg << "Read address: " << readAddress.getSaveString() << endl;
 
 			if (!searchAddress.getName().empty()) {
 				if (readAddress.getName() == searchAddress.getName()) {
-					cout << ULL_count << readline << endl;
+					mycmd << ULL_count << readline << endl;
 				} else {
-					cout << "Name not found." << endl;
+					mycmd << "Name not found." << endl;
 				}
 			}
 			if (!searchAddress.getVorname().empty()) {
 				if (readAddress.getVorname() == searchAddress.getVorname()) {
-					cout << ULL_count << readline << endl;
+					mycmd << ULL_count << readline << endl;
 				} else {
-					cout << "Vorname not found." << endl;
+					mycmd << "Vorname not found." << endl;
 				}
 			}
 			if (!searchAddress.getFormattedGeburtstag().empty()) {
 				if (readAddress.getFormattedGeburtstag()
 						== searchAddress.getFormattedGeburtstag()) {
-					cout << ULL_count << readline << endl;
+					mycmd << ULL_count << readline << endl;
 				} else {
-					cout << "Geburtstag not found." << endl;
+					mycmd << "Geburtstag not found." << endl;
 				}
 			}
 			if (!searchAddress.getHausnummer().empty()) {
 				if (readAddress.getHausnummer()
 						== searchAddress.getHausnummer()) {
-					cout << ULL_count << readline << endl;
+					mycmd << ULL_count << readline << endl;
 				} else {
-					cout << "Hausnummer not found." << endl;
+					mycmd << "Hausnummer not found." << endl;
 				}
 			}
 			if (!searchAddress.getOrt().empty()) {
 				if (readAddress.getOrt() == searchAddress.getOrt()) {
-					cout << ULL_count << readline << endl;
+					mycmd << ULL_count << readline << endl;
 				} else {
-					cout << "Ort not found." << endl;
+					mycmd << "Ort not found." << endl;
 				}
 			}
 			if (!searchAddress.getPostleitzahl().empty()) {
 				if (readAddress.getPostleitzahl()
 						== searchAddress.getPostleitzahl()) {
-					cout << ULL_count << readline << endl;
+					mycmd << ULL_count << readline << endl;
 				} else {
-					cout << "PLZ not found." << endl;
+					mycmd << "PLZ not found." << endl;
 				}
 			}
 		}
 	} else {
-		cerr << "File not found: " << filename << endl;
+		err << "File not found: " << filename << endl;
 	}
 	info.close();
 }
 
 void AddressdatenCMDL::searchAddressInteractively(string filename) {
-	cout << "Please give me your Addressdatainformation" << endl;
+	mycmd << "Please give me your Addressdatainformation" << endl;
 	Address address = getAddressInteractivelyFromInput();
 	searchAddressInFileContent(address, filename);
 }
 
 void AddressdatenCMDL::addAddress(string argv, string filename) {
-	cout << "Reading address " << argv << endl;
+	mycmd << "Reading address " << argv << endl;
 	Address myaddress = Address::parseAddress(argv,",");
-	cout << "Read address: " << myaddress.getSaveString() << endl;
+	mycmd << "Read address: " << myaddress.getSaveString() << endl;
 	writeAddress(filename, myaddress);
-	cout << "Saved address to file " << filename << endl;
+	mycmd << "Saved address to file " << filename << endl;
 }
 
 
 string AddressdatenCMDL::toString(char **args, int argc) {
-	cout << "Retrieve parameter with count " << argc << endl;
+	dbg << "Retrieve parameter with count " << argc << endl;
 	stringstream mystringstream;
 	for (int i = 2; i < argc; i++) {
 		if (i == 2 || i==3) {
@@ -301,13 +301,13 @@ string AddressdatenCMDL::toString(char **args, int argc) {
 		} else {
 			mystringstream << args[i] << ",";
 		}
-		cout << "Reading parameter " << args[i] << endl;
+		dbg << "Reading parameter " << args[i] << endl;
 	}
 	return mystringstream.str();
 }
 
 void AddressdatenCMDL::showvalue(string value, bool b) {
-	cout << value << ":" << b << endl;
+	mycmd << value << ":" << b << endl;
 }
 
 void AddressdatenCMDL::runProgramm(int argc, char **argv) {
@@ -347,52 +347,52 @@ void AddressdatenCMDL::runProgramm(int argc, char **argv) {
 			searchAddressInteractively(addressfile);
 		}
 		if (search && interactive && kp) {
-			cout << "Not yet implemented." << endl;
+			mycmd << "Not yet implemented." << endl;
 		}
 		if (search && !interactive) {
-			cout << "search addressdata." << endl;
+			mycmd << "search addressdata." << endl;
 			if (argc > 2) {
 				string args = toString(argv, argc);
 				if (!args.empty()) {
 					searchAddressInFileContent(Address::parseAddress(args,","),
 							addressfile);
 				} else {
-					cerr << "Addressdaten nicht gefunden." << endl;
+					err << "Addressdaten nicht gefunden." << endl;
 				}
 			} else {
-				cerr << "Nicht genuegend Parameter." << endl;
+				err << "Nicht genuegend Parameter." << endl;
 			}
 		}
 		if (remove && !interactive) {
-			cout << "Remove addressdata." << endl;
+			mycmd << "Remove addressdata." << endl;
 			if (argc > 2) {
 				u_int32_t ULL_id = 0;
 				ULL_id = atoi(argv[2]);
-				cout << "Addressdata Nr. " << argv[2]
+				mycmd << "Addressdata Nr. " << argv[2]
 						<< "will be transformed to " << ULL_id << endl;
 				u_int32_t ULL_count = countFileContent(addressfile);
 				if (ULL_id > 0 && ULL_id <= ULL_count) {
 					removeData(addressfile, ULL_id);
 				} else {
-					cerr << "Your id " << ULL_id
+					err << "Your id " << ULL_id
 							<< " is not in range of the current count"
 							<< ULL_count << endl;
 				}
 			} else {
-				cerr << "Nicht genuegend Parameter." << endl;
+				err << "Nicht genuegend Parameter." << endl;
 			}
 		}
 		if (add && !interactive) {
-			cout << "Add addressdata." << endl;
+			mycmd << "Add addressdata." << endl;
 			if (argc > 2) {
 				string args = toString(argv, argc);
 				if (!args.empty()) {
 					addAddress(args, addressfile);
 				} else {
-					cerr << "Addressdaten nicht gefunden." << endl;
+					err << "Addressdaten nicht gefunden." << endl;
 				}
 			} else {
-				cerr << "Nicht genuegend Parameter." << endl;
+				err << "Nicht genuegend Parameter." << endl;
 			}
 		}
 		if (count) {

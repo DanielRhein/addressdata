@@ -21,6 +21,7 @@ private:
 	cmd mycmd;
 	debug::debug dbg;
 	error::error err;
+	bool verbose;
 public:
 	AddressdatenCMDL();
 	void showFileContent(string filename);

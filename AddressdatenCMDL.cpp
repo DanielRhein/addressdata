@@ -7,12 +7,11 @@
 
 #include "AddressdatenCMDL.h"
 
-
 namespace programm {
 using namespace std;
 using namespace debug;
 AddressdatenCMDL::AddressdatenCMDL() {
-	// TODO Auto-generated constructor stub
+
 }
 
 void AddressdatenCMDL::showFileContent(string filename) {
@@ -29,8 +28,8 @@ void AddressdatenCMDL::showFileContent(string filename) {
 	info.close();
 }
 
-bool  AddressdatenCMDL::question(string question, string positive, string negative,
-		string default_value) {
+bool AddressdatenCMDL::question(string question, string positive,
+		string negative, string default_value) {
 	bool retry = true;
 	do {
 		string input = "";
@@ -45,7 +44,7 @@ bool  AddressdatenCMDL::question(string question, string positive, string negati
 					mycmd << "Your default input was positive." << mycmd.endl();
 					return true;
 				} else {
-					mycmd <<"Your default input was negative."<< mycmd.endl();
+					mycmd << "Your default input was negative." << mycmd.endl();
 					return false;
 				}
 
@@ -59,14 +58,14 @@ bool  AddressdatenCMDL::question(string question, string positive, string negati
 					mycmd << "Your input was positive." << mycmd.endl();
 					return false;
 				} else {
-					mycmd << "Wrong input detected. Request will start soon." << mycmd.endl();
+					mycmd << "Wrong input detected. Request will start soon."
+							<< mycmd.endl();
 					retry = true;
 				}
 			}
 		}
 	} while (retry);
 }
-
 
 void AddressdatenCMDL::removeData(string filename, u_int32_t &ULL_id) {
 	ifstream info;
@@ -156,16 +155,6 @@ void AddressdatenCMDL::writeAddress(string filename, Address addresse) {
 	}
 }
 
-bool AddressdatenCMDL::hastoken(string param, string value) {
-	size_t found = param.find(value);
-	if (found != std::string::npos) {
-		return true;
-	} else {
-		return false;
-	}
-}
-
-
 void AddressdatenCMDL::split(const string& s, char delim, vector<string>& v) {
 	auto i = 0;
 	auto pos = s.find(delim);
@@ -188,14 +177,12 @@ string AddressdatenCMDL::getInput(string bez) {
 	return line;
 }
 
-
 string AddressdatenCMDL::getAddress(char argv[]) {
 	string text(argv);
 	vector<string> result;
 	split(text, ' ', result);
 	return result[result.size()];
 }
-
 
 Address AddressdatenCMDL::getAddressInteractivelyFromInput() {
 	Address addresse;
@@ -210,7 +197,8 @@ Address AddressdatenCMDL::getAddressInteractivelyFromInput() {
 	return addresse;
 }
 
-void AddressdatenCMDL::searchAddressInFileContent(Address searchAddress, string filename) {
+void AddressdatenCMDL::searchAddressInFileContent(Address searchAddress,
+		string filename) {
 	ifstream info;
 	string readline;
 	u_int32_t ULL_count = 0;
@@ -220,7 +208,8 @@ void AddressdatenCMDL::searchAddressInFileContent(Address searchAddress, string 
 		while (getline(info, readline)) {
 			ULL_count++;
 			dbg << "Readline: " << readline << endl;
-			Address readAddress = Address::parseAddress(readline,Address::DELIMITER);
+			Address readAddress = Address::parseAddress(readline,
+					Address::DELIMITER);
 			dbg << "Read address: " << readAddress.getSaveString() << endl;
 
 			if (!searchAddress.getName().empty()) {
@@ -283,18 +272,17 @@ void AddressdatenCMDL::searchAddressInteractively(string filename) {
 
 void AddressdatenCMDL::addAddress(string argv, string filename) {
 	mycmd << "Reading address " << argv << endl;
-	Address myaddress = Address::parseAddress(argv,",");
+	Address myaddress = Address::parseAddress(argv, ",");
 	mycmd << "Read address: " << myaddress.getSaveString() << endl;
 	writeAddress(filename, myaddress);
 	mycmd << "Saved address to file " << filename << endl;
 }
 
-
 string AddressdatenCMDL::toString(char **args, int argc) {
 	dbg << "Retrieve parameter with count " << argc << endl;
 	stringstream mystringstream;
 	for (int i = 2; i < argc; i++) {
-		if (i == 2 || i==3) {
+		if (i == 2 || i == 3) {
 			mystringstream << args[i] << " ";
 		} else if (i == 9) {
 			mystringstream << args[i];
@@ -311,8 +299,9 @@ void AddressdatenCMDL::showvalue(string value, bool b) {
 }
 
 void AddressdatenCMDL::runProgramm(int argc, char **argv) {
-	bool add, remove, search, interactive, kp, count;
+
 	string addressfile = "addressen.csv";
+	Address address;
 	stringstream ss();
 	string params;
 	for (int i = 0; i < argc; i++) {
@@ -323,194 +312,209 @@ void AddressdatenCMDL::runProgramm(int argc, char **argv) {
 		showFileContent("bannersimple");
 		showFileContent("runinfo");
 	} else {
-		add = hastoken(params, "-a");
-		search = hastoken(params, "-s");
-		interactive = hastoken(params, "-i");
-		remove = hastoken(params, "-r");
-		count = hastoken(params, "-c");
-		kp = hastoken(params, "-k");
-		showvalue("add", add);
-		showvalue("search", search);
-		showvalue("interactive", interactive);
-		showvalue("remove", remove);
-		showvalue("count", count);
-		showvalue("koelnerphonetic", kp);
+		addressdatenParameter.analyseparams(params);
+		//dbg << addressdatenParameter;
+		std::vector<AddressdatenParameter::PARAMETER> parameters =
+				addressdatenParameter.getStatus();
+		for (int i = 0; i < parameters.size(); i++) {
+			switch (parameters[i]) {
+			case AddressdatenParameter::P_ADD: {
+				mycmd << "Add addressdata." << endl;
+				if (argc > 2) {
+					string args = toString(argv, argc);
+					if (!args.empty()) {
+						addAddress(args, addressfile);
+					} else {
+						err << "Addressdaten nicht gefunden." << endl;
+					}
+				} else {
+					err << "Nicht genuegend Parameter." << endl;
+				}
 
-		if (add && interactive) {
-			Address address = getAddressInteractivelyFromInput();
-			writeAddress(addressfile, address);
-		}
-		if (remove && interactive) {
-			removeDataInteractively(addressfile);
-		}
-		if (search && interactive) {
-			searchAddressInteractively(addressfile);
-		}
-		if (search && interactive && kp) {
-			mycmd << "Not yet implemented." << endl;
-		}
-		if (search && !interactive) {
-			mycmd << "search addressdata." << endl;
-			if (argc > 2) {
-				string args = toString(argv, argc);
-				if (!args.empty()) {
-					searchAddressInFileContent(Address::parseAddress(args,","),
-							addressfile);
-				} else {
-					err << "Addressdaten nicht gefunden." << endl;
-				}
-			} else {
-				err << "Nicht genuegend Parameter." << endl;
+				break;
 			}
-		}
-		if (remove && !interactive) {
-			mycmd << "Remove addressdata." << endl;
-			if (argc > 2) {
-				u_int32_t ULL_id = 0;
-				ULL_id = atoi(argv[2]);
-				mycmd << "Addressdata Nr. " << argv[2]
-						<< "will be transformed to " << ULL_id << endl;
-				u_int32_t ULL_count = countFileContent(addressfile);
-				if (ULL_id > 0 && ULL_id <= ULL_count) {
-					removeData(addressfile, ULL_id);
-				} else {
-					err << "Your id " << ULL_id
-							<< " is not in range of the current count"
-							<< ULL_count << endl;
-				}
-			} else {
-				err << "Nicht genuegend Parameter." << endl;
+			case AddressdatenParameter::P_ADDINTERACTIVE: {
+				address = getAddressInteractivelyFromInput();
+				writeAddress(addressfile, address);
+				break;
 			}
-		}
-		if (add && !interactive) {
-			mycmd << "Add addressdata." << endl;
-			if (argc > 2) {
-				string args = toString(argv, argc);
-				if (!args.empty()) {
-					addAddress(args, addressfile);
+			case AddressdatenParameter::P_SEARCH: {
+				mycmd << "search addressdata." << endl;
+				if (argc > 2) {
+					string args = toString(argv, argc);
+					if (!args.empty()) {
+						searchAddressInFileContent(
+								Address::parseAddress(args, ","), addressfile);
+					} else {
+						err << "Addressdaten nicht gefunden." << endl;
+					}
 				} else {
-					err << "Addressdaten nicht gefunden." << endl;
+					err << "Nicht genuegend Parameter." << endl;
 				}
-			} else {
-				err << "Nicht genuegend Parameter." << endl;
+				break;
 			}
-		}
-		if (count) {
-			countFileContent(addressfile);
+			case AddressdatenParameter::P_SEARCHINTERACTIVE: {
+				searchAddressInteractively(addressfile);
+				break;
+			}
+			case AddressdatenParameter::P_EDIT: {
+				mycmd << "not yet implemented" << endl;
+				break;
+			}
+			case AddressdatenParameter::P_EDITINTERACTIVE: {
+				mycmd << "not yet implemented" << endl;
+				break;
+			}
+			case AddressdatenParameter::P_REMOVEINTERACTIVE:
+			{
+				removeDataInteractively(addressfile);
+				break;
+			}
+
+			case AddressdatenParameter::P_KOELNERPHONETICINTERACTIVE:
+			{
+				mycmd << "Not yet implemented." << endl;
+				break;
+			}
+
+			case AddressdatenParameter::P_REMOVE:
+			{
+				mycmd << "Remove addressdata." << endl;
+				if (argc > 2) {
+					u_int32_t ULL_id = 0;
+					ULL_id = atoi(argv[2]);
+					mycmd << "Addressdata Nr. " << argv[2]
+							<< "will be transformed to " << ULL_id << endl;
+					u_int32_t ULL_count = countFileContent(addressfile);
+					if (ULL_id > 0 && ULL_id <= ULL_count) {
+						removeData(addressfile, ULL_id);
+					} else {
+						err << "Your id " << ULL_id
+								<< " is not in range of the current count"
+								<< ULL_count << endl;
+					}
+				} else {
+					err << "Nicht genuegend Parameter." << endl;
+				}
+				break;
+			}
+			case AddressdatenParameter::P_COUNT:
+			{
+				countFileContent(addressfile);
+				break;
+			}
 		}
 	}
 }
-
+}
 
 AddressdatenCMDL::~AddressdatenCMDL() {
 	// TODO Auto-generated destructor stub
 }
 
-
-
 } /* namespace programm */
 
 /*#include <iostream>
-#include <fstream>
-#include <vector>
-#include <sstream>
+ #include <fstream>
+ #include <vector>
+ #include <sstream>
 
-#include "Address.h"
-using namespace std;
+ #include "Address.h"
+ using namespace std;
 
-void showvalue(string value, bool b) {
-	cout << value << ":" << b << endl;
-}
+ void showvalue(string value, bool b) {
+ cout << value << ":" << b << endl;
+ }
 
-int main(int argc, char **argv) {
-	bool add, remove, search, interactive, kp, count;
-	string addressfile = "addressen.csv";
-	stringstream ss();
-	string params;
-	for (int i = 0; i < argc; i++) {
-		params.append(argv[i]);
-	}
+ int main(int argc, char **argv) {
+ bool add, remove, search, interactive, kp, count;
+ string addressfile = "addressen.csv";
+ stringstream ss();
+ string params;
+ for (int i = 0; i < argc; i++) {
+ params.append(argv[i]);
+ }
 
-	if (argc == 1) {
-		showFileContent("bannersimple");
-		showFileContent("runinfo");
-	} else {
-		add = hastoken(params, "-a");
-		search = hastoken(params, "-s");
-		interactive = hastoken(params, "-i");
-		remove = hastoken(params, "-r");
-		count = hastoken(params, "-c");
-		kp = hastoken(params, "-k");
-		showvalue("add", add);
-		showvalue("search", search);
-		showvalue("interactive", interactive);
-		showvalue("remove", remove);
-		showvalue("count", count);
-		showvalue("koelnerphonetic", kp);
+ if (argc == 1) {
+ showFileContent("bannersimple");
+ showFileContent("runinfo");
+ } else {
+ add = hastoken(params, "-a");
+ search = hastoken(params, "-s");
+ interactive = hastoken(params, "-i");
+ remove = hastoken(params, "-r");
+ count = hastoken(params, "-c");
+ kp = hastoken(params, "-k");
+ showvalue("add", add);
+ showvalue("search", search);
+ showvalue("interactive", interactive);
+ showvalue("remove", remove);
+ showvalue("count", count);
+ showvalue("koelnerphonetic", kp);
 
-		if (add && interactive) {
-			Address address = getAddressInteractivelyFromInput();
-			writeAddress(addressfile, address);
-		}
-		if (remove && interactive) {
-			removeDataInteractively(addressfile);
-		}
-		if (search && interactive) {
-			searchAddressInteractively(addressfile);
-		}
-		if (search && interactive && kp) {
-			cout << "Not yet implemented." << endl;
-		}
-		if (search && !interactive) {
-			cout << "search addressdata." << endl;
-			if (argc > 2) {
-				string args = toString(argv, argc);
-				if (!args.empty()) {
-					searchAddressInFileContent(Address::parseAddress(args,","),
-							addressfile);
-				} else {
-					cerr << "Addressdaten nicht gefunden." << endl;
-				}
-			} else {
-				cerr << "Nicht genuegend Parameter." << endl;
-			}
-		}
-		if (remove && !interactive) {
-			cout << "Remove addressdata." << endl;
-			if (argc > 2) {
-				u_int32_t ULL_id = 0;
-				ULL_id = atoi(argv[2]);
-				cout << "Addressdata Nr. " << argv[2]
-						<< "will be transformed to " << ULL_id << endl;
-				u_int32_t ULL_count = countFileContent(addressfile);
-				if (ULL_id > 0 && ULL_id <= ULL_count) {
-					removeData(addressfile, ULL_id);
-				} else {
-					cerr << "Your id " << ULL_id
-							<< " is not in range of the current count"
-							<< ULL_count << endl;
-				}
-			} else {
-				cerr << "Nicht genuegend Parameter." << endl;
-			}
-		}
-		if (add && !interactive) {
-			cout << "Add addressdata." << endl;
-			if (argc > 2) {
-				string args = toString(argv, argc);
-				if (!args.empty()) {
-					addAddress(args, addressfile);
-				} else {
-					cerr << "Addressdaten nicht gefunden." << endl;
-				}
-			} else {
-				cerr << "Nicht genuegend Parameter." << endl;
-			}
-		}
-		if (count) {
-			countFileContent(addressfile);
-		}
-	}
-}
+ if (add && interactive) {
+ Address address = getAddressInteractivelyFromInput();
+ writeAddress(addressfile, address);
+ }
+ if (remove && interactive) {
+ removeDataInteractively(addressfile);
+ }
+ if (search && interactive) {
+ searchAddressInteractively(addressfile);
+ }
+ if (search && interactive && kp) {
+ cout << "Not yet implemented." << endl;
+ }
+ if (search && !interactive) {
+ cout << "search addressdata." << endl;
+ if (argc > 2) {
+ string args = toString(argv, argc);
+ if (!args.empty()) {
+ searchAddressInFileContent(Address::parseAddress(args,","),
+ addressfile);
+ } else {
+ cerr << "Addressdaten nicht gefunden." << endl;
+ }
+ } else {
+ cerr << "Nicht genuegend Parameter." << endl;
+ }
+ }
+ if (remove && !interactive) {
+ cout << "Remove addressdata." << endl;
+ if (argc > 2) {
+ u_int32_t ULL_id = 0;
+ ULL_id = atoi(argv[2]);
+ cout << "Addressdata Nr. " << argv[2]
+ << "will be transformed to " << ULL_id << endl;
+ u_int32_t ULL_count = countFileContent(addressfile);
+ if (ULL_id > 0 && ULL_id <= ULL_count) {
+ removeData(addressfile, ULL_id);
+ } else {
+ cerr << "Your id " << ULL_id
+ << " is not in range of the current count"
+ << ULL_count << endl;
+ }
+ } else {
+ cerr << "Nicht genuegend Parameter." << endl;
+ }
+ }
+ if (add && !interactive) {
+ cout << "Add addressdata." << endl;
+ if (argc > 2) {
+ string args = toString(argv, argc);
+ if (!args.empty()) {
+ addAddress(args, addressfile);
+ } else {
+ cerr << "Addressdaten nicht gefunden." << endl;
+ }
+ } else {
+ cerr << "Nicht genuegend Parameter." << endl;
+ }
+ }
+ if (count) {
+ countFileContent(addressfile);
+ }
+ }
+ }
  *
  */

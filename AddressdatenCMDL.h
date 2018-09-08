@@ -13,7 +13,9 @@
 #include <vector>
 #include <sstream>
 #include "Address.h"
+#include "AddressdatenParameter.h"
 #include "Commandline.h"
+#include <vector>
 namespace programm {
 
 class AddressdatenCMDL {
@@ -22,6 +24,7 @@ private:
 	debug::debug dbg;
 	error::error err;
 	bool verbose;
+	AddressdatenParameter addressdatenParameter;
 public:
 	AddressdatenCMDL();
 	void showFileContent(string filename);
@@ -31,7 +34,6 @@ public:
 	void removeDataInteractively(string filename);
 	u_int32_t countFileContent(string filename);
 	void writeAddress(string filename, Address addresse);
-	bool hastoken(string param, string value);
 	void split(const string& s, char delim, vector<string>& v);
 	string getAddress(char argv[]);
 	string getInput(string bez);

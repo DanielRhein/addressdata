@@ -90,7 +90,7 @@ In development
 | -e | edit an address | -- | task/edit |  
 | clean up and refactoring | continuing 09.08.2018 | task/clean | 
 | test | test sources | test |task/test|
-| document | document sources | doxygen | task/doxygen | 
+| document | document sources | done 09.08.2018 | task/doxygen | 
 | man-document | man documentation | man | task/man |
 | cmd-gui | ncurses gui | cmd-gui | feature/cmd-gui |
 | gui | gtk-gui | gtk-gui | feature/gtk-gui |

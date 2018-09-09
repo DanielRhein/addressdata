@@ -49,8 +49,10 @@ src/libs/Banner/Banner.cpp
 src/libs/Banner/Banner.h
 src/libs/RunInfo/RunInfo.cpp
 src/libs/RunInfo/RunInfo.h
-
-
+src/html
+src/latex
+CMakeDoxyfile.in
+CMakeDoxygenDefaults.cmake
 #TestFiles
 *.csv
 /Debug/

@@ -50,7 +50,7 @@ In addition this programm will also take care of
 
 as a part of the address.
 
-###Example
+### Addresdata-Example
 
 
 ```bash
@@ -63,7 +63,7 @@ addressdata -a Max,Mustermann,Musterstrasse,2,66531 Phantasiestadt,01.01.00 00:0
 Every data is currently saved in an CSV-File. Each line is counted up, starting with 1.
 Saved addresses will identified by its line. 
 
-###Example
+### Id-Example
 
 
 ```bash
@@ -86,7 +86,7 @@ In development
 | -a | interactively add an address | done 18.08.2018 | task/add1 |
 | -r | interactively remove an address | done 18.08.2018 | task/remove |
 | -s | interactively search an address | done 18.08.2018 | task/search | 
-| clean up and refactoring | clean code and refactoring | task/clean | 
+| clean up and refactoring | continuing 09.08.2018 | task/clean | 
 | test | test sources | test |task/test|
 | document | document sources | doxygen | task/doxygen | 
 | man-document | man documentation | man | task/man |

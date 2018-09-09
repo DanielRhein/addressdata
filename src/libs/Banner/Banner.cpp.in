@@ -1,0 +1,28 @@
+#include "Banner.h"
+
+const string Banner::BANNER="@BANNER@";
+const string Banner::BANNERFLOWERPOWER="@BANNERFLOWERPOWER@";
+const string Banner::BANNERSIMPLE="@BANNERSIMPLE@";
+
+Banner::Banner()
+{
+}
+
+string Banner::getBanner()
+{
+return BANNER;
+}
+
+string Banner::getBannerFlowerPower()
+{
+return BANNERFLOWERPOWER;
+}
+
+string Banner::getBannerSimple()
+{
+return BANNERSIMPLE;
+}
+
+Banner::~Banner()
+{
+}

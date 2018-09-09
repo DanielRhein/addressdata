@@ -1,0 +1,19 @@
+/*
+ * RUNINFO.h
+ *
+ *  Created on: 09.09.2018
+ *      Author: daniel
+ */
+#ifndef RUNINFO_H_
+#define RUNINFO_H_
+#include <iostream>
+using namespace std;
+class RunInfo {
+private:
+	static const string RUNINFO;
+public:
+	RunInfo();
+	string getRunInfo();
+	virtual ~RunInfo();
+};
+#endif /* RUNINFO_H_ */

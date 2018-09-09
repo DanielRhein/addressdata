@@ -44,8 +44,13 @@ CMakeFiles/
 .project
 .settings/
 
+#IgnoredFiled
+src/libs/Banner/Banner.cpp
+src/libs/Banner/Banner.h
+src/libs/RunInfo/RunInfo.cpp
+src/libs/RunInfo/RunInfo.h
+
 
 #TestFiles
-addressen.csv
-addressen_bak.csv
+*.csv
 /Debug/

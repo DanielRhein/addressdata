@@ -299,7 +299,8 @@ void AddressdatenCMDL::showvalue(string value, bool b) {
 }
 
 void AddressdatenCMDL::runProgramm(int argc, char **argv) {
-
+	RunInfo runinfo;
+	Banner banner;
 	string addressfile = "addressen.csv";
 	Address address;
 	stringstream ss();
@@ -309,8 +310,8 @@ void AddressdatenCMDL::runProgramm(int argc, char **argv) {
 	}
 
 	if (argc == 1) {
-		showFileContent("bannersimple");
-		showFileContent("runinfo");
+		mycmd << banner.getBannerSimple() << endl;
+		mycmd << runinfo.getRunInfo() << endl;
 	} else {
 		addressdatenParameter.analyseparams(params);
 		//dbg << addressdatenParameter;

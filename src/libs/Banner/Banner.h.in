@@ -1,0 +1,23 @@
+/*
+ * Banner.h
+ *
+ *  Created on: 09.09.2018
+ *      Author: daniel
+ */
+#ifndef BANNER_H_
+#define BANNER_H_
+#include <iostream>
+using namespace std;
+class Banner {
+private:
+	static const string BANNER;
+	static const string BANNERFLOWERPOWER;
+	static const string BANNERSIMPLE;
+public:
+	Banner();
+	string getBanner();
+	string getBannerFlowerPower();
+	string getBannerSimple();
+	virtual ~Banner();
+};
+#endif /* ADDRESS_H_ */

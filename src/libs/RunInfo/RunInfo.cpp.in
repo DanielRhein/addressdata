@@ -1,0 +1,15 @@
+#include "RunInfo.h"
+const string RunInfo::RUNINFO="@RUNINFO@";
+
+RunInfo::RunInfo()
+{
+}
+
+string RunInfo::getRunInfo()
+{
+return RUNINFO;
+}
+
+RunInfo::~RunInfo()
+{
+}

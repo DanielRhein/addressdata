@@ -15,6 +15,8 @@
 #include "Address.h"
 #include "AddressdatenParameter.h"
 #include "Commandline.h"
+#include "Banner.h"
+#include "RunInfo.h"
 #include <vector>
 namespace programm {
 

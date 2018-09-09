@@ -1,0 +1,22 @@
+Addressdata has seven-Parametters to run\n
+\n
+addressdata <options> <address> \n
+\n
+Options:\n
+-a  Add a address.\n
+-i  Interactively. Allows you to add (-a) or remove (-r) an address interactively.\n
+-r  Remove address. Need an id of the given address, or the exact one.\n
+-s  Search for address with the given parameters.\n
+-c  Count addressdaten.\n
+-b  Show a banner.\n
+-bf Show a flower power banner.\n
+\n
+Address:\n
+Comma seperated values that are at least consists of \n
+name       :name of your family.	 \n
+surename   :your first name.\n
+streetname :name of the street you're living in.\n
+housenumber:number of the house you're living in.\n
+zip		   :your zip code.\n
+city	   :village or city you're living in.\n
+birthdate  :your birthday.\n

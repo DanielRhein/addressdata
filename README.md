@@ -83,9 +83,11 @@ In development
 | -r -i | interactively remove an address | done 4.08 | task/r1 |
 | -c    | count address content | done 04.08 | task/c1 |
 | -s -i | interactively simple search of an address | done 15.08.2018 | task/s1 |  
-| -a | interactively add an address | done 18.08.2018 | task/add1 |
-| -r | interactively remove an address | done 18.08.2018 | task/remove |
-| -s | interactively search an address | done 18.08.2018 | task/search | 
+| -e -i | edit an address | -- | task/edit1 | 
+| -a | add an address | done 18.08.2018 | task/add1 |
+| -r | remove an address | done 18.08.2018 | task/remove |
+| -s | search an address | done 18.08.2018 | task/search | 
+| -e | edit an address | -- | task/edit |  
 | clean up and refactoring | continuing 09.08.2018 | task/clean | 
 | test | test sources | test |task/test|
 | document | document sources | doxygen | task/doxygen | 
@@ -93,3 +95,5 @@ In development
 | cmd-gui | ncurses gui | cmd-gui | feature/cmd-gui |
 | gui | gtk-gui | gtk-gui | feature/gtk-gui |
 | database| db | db | feature/db |
+| improved interpreder for commandline commands |--|--| feature/interpreter |
+| show different banner |--| -- | feature/banner |

@@ -49,6 +49,7 @@ public:
 	void searchAddressInteractively(string filename);
 	void addAddress(string argv, string filename);
 	void editAddress(string id,string address,string filename);
+	void editAddressInteractively(string filename);
 	string toString(char **args, int argc);
 	void showvalue(string value, bool b);
 	void runProgramm(int argc, char **argv);

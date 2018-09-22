@@ -306,6 +306,23 @@ void AddressdatenCMDL::editAddress(string id,string address,string filename)
 	file.close();
 }
 
+void AddressdatenCMDL::editAddressInteractively(string filename)
+{
+	string id,address;
+	u_int32_t count;
+	count = countFileContent(filename);
+	id = getInput("Get id of the edit entry.");
+	if (atoi(id.c_str())>count)
+	{
+	mycmd << "The given id is greater than file content choose another one." <<endl;
+	}
+	else
+	{
+		Address address = getAddressInteractivelyFromInput();
+		editAddress(id,address.getSaveString(CMDL_DELIMITER),filename);
+	}
+}
+
 string AddressdatenCMDL::toString(char **args, int argc) {
 	dbg << "Retrieve parameter with count " << argc << endl;
 	stringstream mystringstream;
@@ -399,7 +416,8 @@ void AddressdatenCMDL::runProgramm(int argc, char **argv) {
 				break;
 			}
 			case AddressdatenParameter::P_EDITINTERACTIVE: {
-				mycmd << "not yet implemented" << endl;
+				mycmd << "edit addressdata interactively" << endl;
+				editAddressInteractively(addressfile);
 				break;
 			}
 			case AddressdatenParameter::P_REMOVEINTERACTIVE:

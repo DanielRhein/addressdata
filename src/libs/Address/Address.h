@@ -33,6 +33,7 @@ public:
 	string getOrt();
 	string getFormattedGeburtstag();
 	string getSaveString();
+	string getSaveString(string delimiter);
 	static Address parseAddress(string address,string delimiter);
 	static tm parseDateTime(string datetime);
 	tm getGeburtstag();

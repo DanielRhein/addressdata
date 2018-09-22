@@ -78,6 +78,19 @@ string Address::getSaveString()
 	return stream.str();
 }
 
+string Address::getSaveString(string delimiter)
+{
+	stringstream stream;
+	stream << name
+		   << delimiter << vorname
+		   << delimiter << strasse
+		   << delimiter << hausnummer
+		   << delimiter << postleitzahl
+		   << delimiter << ort
+		   << delimiter << this->getFormattedGeburtstag();
+	return stream.str();
+}
+
 
 string Address::getStrasse()
 {

@@ -32,6 +32,7 @@
 *.out
 *.app
 addressdaten
+src/addressdaten
 
 # CMakeFiles
 cmake_install.cmake

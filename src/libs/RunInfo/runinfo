@@ -1,15 +1,19 @@
 Addressdata has seven-Parametters to run\n
 \n
-addressdata <options> <address> \n
+addressdata <options> <id> <address> \n
 \n
 Options:\n
 -a  Add a address.\n
+-b  Show a banner.\n
+-bf Show a flower power banner.\n
+-c  Count addressdaten.\n
+-e  Edit a address.\n
 -i  Interactively. Allows you to add (-a) or remove (-r) an address interactively.\n
 -r  Remove address. Need an id of the given address, or the exact one.\n
 -s  Search for address with the given parameters.\n
--c  Count addressdaten.\n
--b  Show a banner.\n
--bf Show a flower power banner.\n
+\n
+Id:\n
+id of addressdata in the addressdatafile.\n
 \n
 Address:\n
 Comma seperated values that are at least consists of \n

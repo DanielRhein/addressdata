@@ -20,11 +20,13 @@ addressdata <options> [<addressdata>|id]
 | -a     | adding addressdata | comma separated address|*|
 | -r     | remove addressdata | id of the addressdata |*|
 | -s     | search for Addressdata | string you are searching for|*|
+| -e     | edit an existing Address | id of the addressdata and new addressdata | * |
 | -c     | count content of addressdata | none |*|
 | -i     | interactively choose add remove or search for address | none|*|
 | -a -i  | adding addressdata interactively | none |*|
 | -r -i | remove interactively an address| none|*|
 | -s -i | search for a string interactively | none |*|
+| -e -i | edit interactivly an address | -- |
 
 ## Dataparameter 
 
@@ -87,7 +89,7 @@ In development
 | -a | add an address | done 18.08.2018 | task/add1 |
 | -r | remove an address | done 18.08.2018 | task/remove |
 | -s | search an address | done 18.08.2018 | task/search | 
-| -e | edit an address | -- | task/edit |  
+| -e | edit an address | done 22.09.2018 | task/edit |  
 | clean up and refactoring | continuing 09.08.2018 | task/clean | 
 | test | test sources | test |task/test|
 | document | document sources | done 09.08.2018 | task/doxygen | 

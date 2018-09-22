@@ -26,7 +26,7 @@ addressdata <options> [<addressdata>|id]
 | -a -i  | adding addressdata interactively | none |*|
 | -r -i | remove interactively an address| none|*|
 | -s -i | search for a string interactively | none |*|
-| -e -i | edit interactivly an address | -- |
+| -e -i | edit interactivly an address | * |
 
 ## Dataparameter 
 
@@ -85,7 +85,7 @@ In development
 | -r -i | interactively remove an address | done 4.08 | task/r1 |
 | -c    | count address content | done 04.08 | task/c1 |
 | -s -i | interactively simple search of an address | done 15.08.2018 | task/s1 |  
-| -e -i | edit an address | -- | task/edit1 | 
+| -e -i | edit an address | done 22.09.2018 | task/edit1 | 
 | -a | add an address | done 18.08.2018 | task/add1 |
 | -r | remove an address | done 18.08.2018 | task/remove |
 | -s | search an address | done 18.08.2018 | task/search | 

@@ -10,6 +10,9 @@
 namespace programm {
 using namespace std;
 using namespace debug;
+
+const string AddressdatenCMDL::CMDL_DELIMITER=",";
+
 AddressdatenCMDL::AddressdatenCMDL() {
 
 }
@@ -124,6 +127,8 @@ void AddressdatenCMDL::removeDataInteractively(string filename) {
 	}
 	info.close();
 }
+
+
 
 u_int32_t AddressdatenCMDL::countFileContent(string filename) {
 	ifstream info;
@@ -272,10 +277,33 @@ void AddressdatenCMDL::searchAddressInteractively(string filename) {
 
 void AddressdatenCMDL::addAddress(string argv, string filename) {
 	mycmd << "Reading address " << argv << endl;
-	Address myaddress = Address::parseAddress(argv, ",");
+	Address myaddress = Address::parseAddress(argv, CMDL_DELIMITER);
 	mycmd << "Read address: " << myaddress.getSaveString() << endl;
 	writeAddress(filename, myaddress);
 	mycmd << "Saved address to file " << filename << endl;
+}
+
+fstream AddressdatenCMDL::gotoLine(string filename,int num)
+{
+	fstream file(filename);
+	file.seekg(std::ios::beg);
+	for(int i=0;i<num-1;i++)
+	{
+		file.ignore(std::numeric_limits<std::streamsize>::max(),'\n');
+
+	}
+	return file;
+}
+
+void AddressdatenCMDL::editAddress(string id,string address,string filename)
+{
+	int m_id = atoi(id.c_str());
+	string savestring ="";
+	Address m_address = Address::parseAddress(address,CMDL_DELIMITER);
+	fstream file=gotoLine(filename,m_id);
+	savestring = m_address.getSaveString();
+	file.write(savestring.c_str(),savestring.size());
+	file.close();
 }
 
 string AddressdatenCMDL::toString(char **args, int argc) {
@@ -345,7 +373,7 @@ void AddressdatenCMDL::runProgramm(int argc, char **argv) {
 					string args = toString(argv, argc);
 					if (!args.empty()) {
 						searchAddressInFileContent(
-								Address::parseAddress(args, ","), addressfile);
+								Address::parseAddress(args, CMDL_DELIMITER), addressfile);
 					} else {
 						err << "Addressdaten nicht gefunden." << endl;
 					}
@@ -359,7 +387,15 @@ void AddressdatenCMDL::runProgramm(int argc, char **argv) {
 				break;
 			}
 			case AddressdatenParameter::P_EDIT: {
-				mycmd << "not yet implemented" << endl;
+				mycmd << "edit addressdata." << endl;
+				if (argc > 3)
+				{
+					editAddress(argv[2],argv[3],addressfile);
+				}
+				else
+				{
+					err << "Nicht genuegend Parameter." << endl;
+				}
 				break;
 			}
 			case AddressdatenParameter::P_EDITINTERACTIVE: {

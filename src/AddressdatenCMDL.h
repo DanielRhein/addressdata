@@ -18,6 +18,8 @@
 #include "Banner.h"
 #include "RunInfo.h"
 #include <vector>
+#include <fstream>
+#include <limits>
 namespace programm {
 
 class AddressdatenCMDL {
@@ -27,12 +29,15 @@ private:
 	error::error err;
 	bool verbose;
 	AddressdatenParameter addressdatenParameter;
+	std::fstream gotoLine(string filename,int num);
+	static const string CMDL_DELIMITER;
 public:
 	AddressdatenCMDL();
 	void showFileContent(string filename);
 	bool question(string question, string positive, string negative,
 			string default_value);
 	void removeData(string filename, u_int32_t &ULL_id);
+
 	void removeDataInteractively(string filename);
 	u_int32_t countFileContent(string filename);
 	void writeAddress(string filename, Address addresse);
@@ -43,6 +48,7 @@ public:
 	void searchAddressInFileContent(Address searchAddress, string filename);
 	void searchAddressInteractively(string filename);
 	void addAddress(string argv, string filename);
+	void editAddress(string id,string address,string filename);
 	string toString(char **args, int argc);
 	void showvalue(string value, bool b);
 	void runProgramm(int argc, char **argv);
